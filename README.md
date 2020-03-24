@@ -1,14 +1,15 @@
 # COMP 150 Lab 5 - Arrays, Strings, etc
+
 In this lab:
 
 * What arrays are and how to create, access and edit them.
 * Traversing arrays and the enhanced `for` loop.
 * Passing by reference, redundant references and copying.
 * Nestability and multi-dimensional arrays.
-* Searching and sorting arrays.
-* Algorithms, pseudocode and implementation via sorting.
+* Algorithms, pseudocode and implementation via searching sorting.
 * `String`s as sequences of `char`s
-* Indexing `String`s, substrings, and other `String` methods
+* Indexing `String`s, substrings, and other `String` methods.
+* Escape sequences.
 * Regular expressions and pattern matching.
 * ArrayLists.
 * Enums.
@@ -114,16 +115,6 @@ while (index < dayNames.length)
 There is an additional type of `for` loop for iterating through sequences. The loop below does the same as the two above (it prints every value in the `dayNames` array). The `:` can be thought of as "in" as far as understanding what the loop syntax means in english.
 
 ```java
-String[ ] dayNames = {
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-};
-
 for (String name : dayNames)
 {
     System.out.println( name );
@@ -161,7 +152,7 @@ System.out.println("array_1's element at index 2 : " + array_1[2]);
 System.out.println("array_2's element at index 2 : " + array_2[2]);
 ```
 
-This has many implications. The most impactful is that, if a method edits an array that was passed in as an argument, the original array is also edited! To demonstrate, consider the following example:
+This has many implications. The most immediate example is: if a method edits an array that was passed in as an argument, the original array is also edited! To demonstrate, consider the following example:
 
 ```java
 public class Sandbox
@@ -315,7 +306,7 @@ int[ ][ ] numbers = {
 
 Here `numbers` is an array containing 4 `int[ ]`s which have lengths 1, 2, 4 and 2 respectively.
 
-## Pseudocode and Sorting Arrays
+## Pseudocode, Sorting and Searching Arrays
 
 Often it is desired to sort array data. There are many ways to do this. Before continuing, watch [this video](https://www.youtube.com/watch?v=g-PGLbMth_g) on Selection Sort.
 
@@ -369,6 +360,36 @@ public static void selectionSort(int[ ] arrayToSort)
 
 # TODO exercise add the implementation above to your IntArrayUtils class. Shorten the implementation above by using the swapIntArrayElements method made earlier. Test it and verify that it works!
 
+### Searching Unsorted Arrays
+
+It is sometimes necessary to search an array for a specified value. If the value is there, it's index is generally what is returned. If the array isn't sorted, this can be a painfully slow procedure, as it is necessary to simply iterate through the array, one element at a time, looking for the specified value. This is called a sequential search:
+
+```
+Sequential Search
+IN: 	array A, desired value v
+
+i = 0
+while i < length(A)
+	if A[i] is v, then return i
+	i = i + 1
+
+return -1
+
+OUT:	the index of v, if A contains c
+		-1, otherwise
+```
+
+### Searching Sorted Arrays
+
+There are a variety of ways to search a sorted array for a specified value, all faster than sequential search. Check out [this video](https://www.youtube.com/watch?v=j5uXyPJ0Pew) on binary and sequential search. Note that the pseudo code written in the video looks more like Java than mine, but it is still pseudocode, not Java.
+
+# TODO exercise implement sequential search in IntArrayUtils
+
+# TODO exercise implement binary search in IntArrayUtils
+
+# TODO exercise implement 2D sequential search in IntArrayUtils
+
+
 ### Bubble Sort
 
 Watch [this video](https://www.youtube.com/watch?v=xli_FI7CuzA) on Bubble Sort.
@@ -388,3 +409,118 @@ OUT: arr is sorted
 ```
 
 # TODO exercise implement and test Bubble Sort in your IntArrayUtils class.
+
+## `String` again, `StringBuilder`, and Regular Expressions
+
+We've explored some `String` methods briefly in prior labs. Here, we will explore a few of them in more detail. We will also touch on the `StringBuilder` class, which can be used to (you guessed it) build `String`s piece by piece, and regular expressions, which can be used to match patterns to more efficiently interpret and categorize `String` values.
+
+### `String`s are sequences
+
+Much like arrays, `String`s are sequences whose elements (`char`s) can be accessed with their index.
+
+Consider the following snippet:
+
+```java
+String hello = "Hello";
+```
+
+The statement above creates a `String` called `hello` and stores in it the value `"Hello"`. We can visualize this value and its indexes much like an array:
+
+| **`char`** | `'H'` | `'e'` | `'l'` | `'l'` | `'o'` |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **index** | **0** | **1**| **2** | **3**| **4** |
+
+Where arrays use square brackets to access elements by their index, `String`s use the `charAt` method to access elements at specified indexes. From the for example, in the snippet above, `hello.charAt(1)` is an expression which would return the `'e'` from `"Hello"`.
+
+# TODO String indexing exercise
+
+### The `substring` method
+
+A piece of a `String` containing multiple characters can be gotten with the `substring` method. The `substring` method takes two arguments: the start and end indexes of the desired substring. It returns a substring starting at the provided start index and ending with the index before the provided end index. With `hello` defined in the snippet above, `hello.substring(1, 4)` would return the substring `"ell"`; each character, starting at index `1` and before index `4`. The end index can be omitted; if it is, then all characters from the start index to the end of the `String` are included in the substring. For instance, `hello.substring(3)` returns `"lo"`: every character from index `3` to the end.
+
+# TODO `substring` exercises
+
+### The `indexOf` and `lastIndexOf` methods
+
+The `String` class's `indexOf` and `lastIndexOf` methods can be used to find the index of specified characters or substrings. `indexOf` is polymorphic. Its simplest form takes a `char` as an argument, and outputs the index of the first occurrence of that `char` in the `String` calling it, or `-1` if there no occurence of the designated character. For instance, `hello.indexOf('l')` returns `2`, because `2` is the index of the first `'l'` character.
+
+`lastIndexOf` is very similar to `indexOf`, and the difference in behavior is implied by its name. What does `hello.lastIndexOf('l')` return with `hello` defined as above?
+
+There are more complex forms of each of these functions, which take extra arguments to perform more complex tasks (like, say, finding the index of the first occurrence of the designated character on or after a specified index, or finding the starting index of a designated substring). Check out the [Java 8 String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to learn more.
+
+# TODO indexOf substring phone number and name exercises
+
+### `StringBuilder`
+
+When building a `String` in pieces, it is prudent to use the `StringBuilder` class instead of repeatedlying using `String` addition. The reason has to do with how memory is allocated for `String` variables under the hood. When you create a `String`, enough space is allocated to store all of its contained characters, and then the variable is given a pointer to that allocated space to reference the `String` value.
+
+Whenever a `String` variable is given a new value (say, through `String` addition), space is allocated for the entirety of this new `String` value and then the new value is written, character by character, into this new space. Then, the space for the old `String` value is deallocated (assuming there are no other references to it).
+
+Memory allocation and deallocation are expensive and we generally want to avoid doing them more than necessary; it is also wasteful to repeatedly copy the start of a `String` into larger and larger spaces when adding more to the end of it. In the example below, each time the `+=` operator is used in the loop, memory for the new `String` value is allocated, then the value is copied into this space, and then the memory for the old `String` value is deallocated.
+
+```java
+Scanner scan = new Scanner(System.in);
+
+System.out.println("Enter 10 words");
+String words = "";
+    
+for (int i = 0; i < 10; i++)
+{
+    words += scan.next() + " ";
+}
+
+System.out.println("You entered: " + words);
+```
+
+The `StringBuilder` stores a list of individual `String`s, so that they can all be "added up" at once. The snippet below does the same as the one above, but uses `StringBuilder` to save time.
+
+```java
+Scanner scan = new Scanner(System.in);
+
+System.out.println("Enter 10 words");
+StringBuilder words = new StringBuilder();
+
+for (int i = 0; i < 10; i++)
+{
+    words.append(scan.next());
+    words.append(" ");
+}
+
+System.out.println("You entered: " + words.toString());
+```
+
+This does not help the memory allocation and deallocation issue in terms of the **number** of allocations, as each "chunk" of the final `String` mush have space allocated, but it does make the **size** of the allocated chunks smaller, which makes allocation easier. It also saves us from repeatedly copying the first word in the `String` each time another word is added to the end.
+
+If you type the first snippet (which uses `+=` on `String`s in a loop) in IntelliJ, the `+=` operator will be highlighted in yellow. Mousing over this highlight will reveal the warning `String concatenation '+=' in loop` along with a suggestion (in blue) to use the `StringBuilder` class instead. Clicking this suggestion will change the snippet to one very similar to the second one above, which uses `StringBuilder`.
+
+### Escape Sequences
+
+In a `String` literal, the backslash `\` is used to start **escape sequences**. Escape sequences are sequences of characters that have a different meaning than the literal sequence. They are often used to represent "special" characters (like newline `'\n'` and tab `'\t'`). They are also used to ensure that other characters are interpretted literally, when they would otherwise have some additional meaning in context. For instance, putting the double quote `'"'` character in a `String` literal requires a backslash, otherwise the double quote character **ends the string**. 
+
+Try assigning and printing each of the following `String` literals to a `String` variable and printing them (if possible). Try to figure out what each of the escape sequences means, which examples below are invalid and why they're invalid.
+
+`"She said "Hello""`  
+`"She said \"Hello\""`  
+`"Up here\nDown there"`  
+`"Block\n\tIndentedBlock"`  
+`"\"`  
+`"\\"`  
+`"\\\\"`  
+`"\\\\\\"`  
+`"Not this\rThis only but why?"`  
+
+The last one escape sequence, `\r`, denotes a **carriage return**, an antique carried from the typewriter into early (bad) encodings for text files. On typewriters, going to a new line was done with two keystrokes, one to go down a line (the line feed) and one to go back to the left side (the carriage return). Most modern editors use just a line feed `\n` to denote **both** of these. Some editors (primarily on Windows machines) still use the carriage return after the line feed, which will lead to multiple headaches throughout your years of practice as a programmer when reading data from files.
+
+# TODO escape sequence exercise
+
+## Regular Expressions
+
+Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor that he's using (called Atom) [here](https://atom.io) if you'd like to experiment with regular expressions in it.
+
+# TODO exercises regex
+
+The video covers some universals of regular expressions. Most regular expression implementations have significantly more functionality built in. You can find the documentation for Java's regular expression implmentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). 
+
+# TODO regex in Java
+
+# TODO exercises regex in Java
