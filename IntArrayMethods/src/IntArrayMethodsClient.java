@@ -117,6 +117,40 @@ public class IntArrayMethodsClient
         int[] minOutputs = {1, 0, 12, -3, -9};
 
 
+
+        // indexes to use when testing swapElements
+        int[][][] swapElementsTestIndexes = {
+                {
+                        {0,0},
+                        {0,1},
+                        {0,2},
+                        {1,2}
+                },
+                {
+                        {0, 1},
+                        {0, 9},
+                        {4, 5},
+                        {5, 4}
+                }
+        };
+
+        // expected results from swapElements calls
+        int[][][] swapElementsValidation = {
+                {
+                        {1, 2, 3},
+                        {2, 1, 3},
+                        {3, 2, 1},
+                        {1, 3, 2}
+                },
+                {
+                        {8, 9, 7, 6, 5, 4, 3, 2, 1, 0},
+                        {0, 8, 7, 6, 5, 4, 3, 2, 1, 9},
+                        {9, 8, 7, 6, 4, 5, 3, 2, 1, 0},
+                        {9, 8, 7, 6, 4, 5, 3, 2, 1, 0}
+                }
+        };
+
+
         //-------------------------------------------------- TOSTRING --------------------------------------------------
         System.out.println("*** TESTING TOSTRING ***");
         System.out.println("(You'll need to check these by hand and ensure they're correct before moving on to further tests)");
@@ -279,6 +313,29 @@ public class IntArrayMethodsClient
                     " is " + min + " : " + (correct ? "CORRECT" : "INCORRECT" +
                     "\n\n----------------------ALL TESTS BELOW THIS ARE INVALID, FIX MIN METHOD BEFORE MOVING ON----------------------"));
             System.out.println();
+        }
+
+        //----------------------------------------------  SWAP ELEMENTS  -----------------------------------------------
+
+        System.out.println("*** TESTING SWAP ELEMENTS ***");
+        System.out.println();
+        for (int i = 0; i < swapElementsTestIndexes.length; i++)
+        {
+            int[] testArray = testInputs[i];
+            for (int j = 0; j < swapElementsTestIndexes[i].length; j++)
+            {
+                int[] testCopy = IntArrayMethods.copy(testArray);
+                IntArrayMethods.swapElements(testCopy, swapElementsTestIndexes[i][j][0], swapElementsTestIndexes[i][j][1]);
+                boolean correct = IntArrayMethods.equals(testCopy, swapElementsValidation[i][j]);
+                System.out.println("   Your swapElements method for " + IntArrayMethods.toString(testArray) +
+                        " with indexes " + swapElementsTestIndexes[i][j][0] + " and " + swapElementsTestIndexes[i][j][1] +
+                        " results in " + IntArrayMethods.toString(testCopy) + " which is " +
+                        (correct ? "CORRECT" : "INCORRECT" +
+                        "\n\n----------------------ALL TESTS BELOW THIS ARE INVALID, FIX MIN METHOD BEFORE MOVING ON----------------------"));
+                System.out.println();
+            }
+
+
         }
 
 

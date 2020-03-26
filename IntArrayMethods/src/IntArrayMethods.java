@@ -13,7 +13,7 @@ public class IntArrayMethods
      */
     public static String toString(int[] inputArray)
     {
-
+        // use a StringBuilder instead of repeated String concatenation!
         return ""; // delete this return when you're done
     }
 
@@ -27,7 +27,7 @@ public class IntArrayMethods
      */
     public static boolean equals(int[] inputArray1, int[] inputArray2)
     {
-        return true; // delete this return when you're done
+        return true;
     }
 
 
@@ -122,6 +122,19 @@ public class IntArrayMethods
         /* Don't use a loop. Instead, use the other min method defined above
         by choosing appropriate startIndex and endIndex values */
         return 0; // delete this return when you're done
+    }
+
+    /* TODO complete the swapElements function below */
+
+    /**
+     * Swaps the two elements at the specified indices of the input array
+     * @param inputArray
+     * @param index_1
+     * @param index_2
+     */
+    public static void swapElements(int[] inputArray, int index_1, int index_2)
+    {
+
     }
 
     /* TODO complete selectionSort method */

@@ -13,6 +13,16 @@ In this lab:
 * Regular expressions and pattern matching.
 * ArrayLists.
 
+## Start Task 1
+
+You'll want to start by downloading the starting code for [task 1](./ArrayMethodsSrc.zip) and creating a project with the contained source files.
+
+It contains two files: `IntArrayMethods.java` and `IntArrayMethodsClient.java`. The client is complete, but none of the methods in `IntArrayMethods.java` are complete.
+
+You should complete all methods in `IntArrayMethods.java` as you go through the rest of the reading. `IntArrayMethodsClient.java` is complete, and can be used to test your methods in `IntArrayMethods`. Note that in order for the tests to be valid, you should complete the methods in `IntArrayMethods.java` in the order they're presented, as some of those further down assume that those above them are correct. For instance, if your `copy` method isn't working correctly, then many of the tests for sorting methods will fail even if the sorting method itself is correct.
+
+Remember not to do more work than necessary! Specifically, try not to repeat work; use the simpler methods in the more complex methods to avoid typing out the same loops over and over.
+
 ## Arrays
 
 So far, each variable we have created has stored one piece of data. The statement `int x = 5;` creates a variable `x` which can store a single integer value, and assigns that value to `5`.
@@ -187,6 +197,43 @@ for (int i = 0; i < myIntArray.length; i++)
 }
 ```
 
+<a name=""></a>**[EXERCISE]()** Create a simple program which declares an array containing the names of all 12 months, in order. Then, traverse the array twice; once with a `for` loop using indexes, and once with an enhanced `for` loop using the `:` operator. Your indexed loop should not use a hard-coded `12`, and should instead use the array's `length` attribute. Try adding and removing elements from the array and ensure that you don't need to change the loops to still print every element in the array, regardless of how many or few there are.
+
+<a name=""></a>**[SOLUTION]()**
+
+```java
+public class Sandbox
+{
+    public static void main(String[] args)
+    {
+        String[] monthNames = {
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+        };
+
+        for (int i = 0; i < monthNames.length; i++)
+        {
+            System.out.println(monthNames[i]);
+        }
+
+        for (String month : monthNames)
+        {
+            System.out.println(month);
+        }
+    }
+}
+```
+
 ### Editing arrays
 
 Values within arrays can be reassigned just like variables.
@@ -302,6 +349,17 @@ F : 1
 Process finished with exit code 0
 ```
 
+### Checking arrays for equality
+
+Two arrays containing elements of the same data type are equal if:
+
+1. They have the same length.
+2. At each index, the elements in the two arrays are equal.
+
+Checking if two arrays are equal, then, requires first checking that their lengths are the equal, and then iterating through them checking that the elements at each index are equal.
+
+Note that requirement 2 above varies in meaning based on data types. With primitives, it means that the elements are equal as determined by the `==` operator. With objects it generally means that they are equal according to  the objects' `equals` method, to check if their contained data is the same, though it sometimes might mean that they are equal using the `==` operator if you want to check if the arrays reference the same objects, as opposed to objects of the same type containing the same data.
+
 ### Arrays are passed by reference
 
 Arrays are objects, so they are passed by reference. In the snippet below, `array_1` and `array_2` are actually references to **the same array**, so editing `array_2` also edits `array_1`.
@@ -376,11 +434,11 @@ public class Sandbox
 }
 ```
 
-# TODO exercise from example above
-
 ### Copying Arrays
 
 Often, it is necessary to create an edited version of an array while keeping the original unedited. Because arrays are passed by reference, and not by value, it is necessary to copy the original array and then edit the copy.
+
+For instance, when we sort an array, we must choose to do so either **in place** by rearranging the original array to be sorted, or **not in place** by creating a copy to sort and leaving the original unsorted.
 
 To copy an array:
 
@@ -450,6 +508,8 @@ This does not help the memory allocation and deallocation issue in terms of the 
 
 If you type the first snippet (which uses `+=` on `String`s in a loop) in IntelliJ, the `+=` operator will be highlighted in yellow. Mousing over this highlight will reveal the warning `String concatenation '+=' in loop` along with a suggestion (in blue) to use the `StringBuilder` class instead. Clicking this suggestion will change the snippet to one very similar to the second one above, which uses `StringBuilder`.
 
+One context in which the `StringBuilder` is useful is that of creating a `String` representation of an array.
+
 ### Swapping array elements
 
 When swapping array elements, there is a small problem which must be overcome. If one value is used to overwrite the other value, then the overwritten value is no longer accessible and cannot be used to overwrite the other. This problem is dealt with useing a temporary storage variable. The snippet below swaps the values at index `3` and `5` in the `numbers` array.
@@ -462,17 +522,15 @@ numbers[3] = numbers[5];
 numbers[5] = temp;
 ```
 
-## Start Task 1
-
-Here, you'll want to download 
-
 ## Pseudocode, Sorting and Searching Arrays
 
 Often it is desired to sort array data. There are many ways to do this. Before continuing, watch [this video](https://www.youtube.com/watch?v=g-PGLbMth_g) on Selection Sort.
 
 Selection Sort is an **algorithm**: a finite sequence of well-defined, computer-implementable instructions, typically to solve a class of problems or to perform a computation. In this case, the problem being solved is that of sorting an array in non-decreasing order.
 
-Algorithms are often represented in **pseudocode**. Pseudocode is simply a description of the algorithm written in a structured way (generally somewhat similar to code), but pseudocode is not written in any particular language; it is instead written for humans to read, so that they might implement algorithms in any desired language.
+Algorithms are often represented in **pseudocode**. Pseudocode is simply a description of the algorithm written in a structured way (generally somewhat similar to code), but pseudocode is not written in any particular programming language; it is instead written for humans to read, so that they might implement algorithms in any suitable language.
+
+Pseudocode is very loosely defined. A paragraph which unambiguously, precisely and completely describes an algorithm is also pseudocode. Anything that unambiguously, precisely and completely defines all of the steps can qualify, though generally a more structured code-like approach is preferred. Arguably, any adequately descriptive recipe could qualify as pseudocode, assuming the instructions unambiguously and precisely describe how to prepare the desired dish.
 
 ### Selection Sort
 
@@ -492,7 +550,7 @@ for i in [0, n-2]
 OUT: arr has been sorted in non-decreasing order
 ```
 
-Notice that the algorithm above is not written in Java, and will not compile in Java. It is instead written in a less formal format for humans to read. Blocks, denoted in Java with curly braces `{}` in Java, are denoted via indentation above; you can tell what is "inside" the outer loop because its contents are indented below it. Pseudocode often uses a mix of notations from programming and mathematics. In the pseudocode above, the pairs in brackets `[0, n-1]` and `[i, n]` denote closed intervals. In general, these would be closed intervals of real numbers, but because we're using the elements of these intervals as indexes we know they must be integers---this does not need to be specified as formally as it would in an actual program, because the pseudocode is intended to be read by humans. This is most apparent in the last line of the outer loop, which is written out as a sentence.
+Notice that the algorithm above is not written in Java, and will not compile in Java. It is instead written in a less formal format for humans to read. It is written in my preferred style of pseudocode. Blocks, denoted in Java with curly braces `{}` in Java, are denoted via indentation above; you can tell what is "inside" the outer loop because its contents are indented below it. Pseudocode often uses a mix of notations from programming and mathematics. In the pseudocode above, the pairs in brackets `[0, n-1]` and `[i, n]` denote closed intervals. In general, these would be closed intervals of real numbers, but because we're using the elements of these intervals as indexes we know they must be integers---this does not need to be specified as formally as it would in an actual program, because the pseudocode is intended to be read by humans. This is most apparent in the last line of the outer loop, which is written out as a sentence.
 
 The structure of the pseudocode is arbitrary; I simply wrote it in a way that make sense to me. Pseudocode can really be any unambiguous sequence of instructions. Any recipe which describe how and when to add ingredients is arguably pseudocode, so long as it is sufficiently unambiguous. Usually, when instructions are referred to as pseudocode, it is in the context of either mathematics or programming, though, and in these situations psuedocode usually looks like a mix of code and english describing an algorithm independent of any programming language.
 
@@ -518,8 +576,6 @@ public static void selectionSort(int[ ] arrayToSort)
 }
 ```
 
-# TODO exercise add the implementation above to your IntArrayUtils class. Shorten the implementation above by using the swapIntArrayElements method made earlier. Test it and verify that it works!
-
 ### Searching Unsorted Arrays
 
 It is sometimes necessary to search an array for a specified value. If the value is there, it's index is generally what is returned. If the array isn't sorted, this can be a painfully slow procedure, as it is necessary to simply iterate through the array, one element at a time, looking for the specified value. This is called a sequential search:
@@ -543,10 +599,6 @@ OUT:	the index of v, if A contains c
 
 There are a variety of ways to search a sorted array for a specified value, all faster than sequential search. Check out [this video](https://www.youtube.com/watch?v=j5uXyPJ0Pew) on binary and sequential search. Note that the pseudo code written in the video looks more like Java than mine, but it is still pseudocode, not Java.
 
-# TODO exercise implement sequential search in IntArrayUtils
-
-# TODO exercise implement binary search in IntArrayUtils
-
 
 ### Bubble Sort
 
@@ -565,8 +617,6 @@ for i in [1, n-1]
 
 OUT: arr is sorted
 ```
-
-# TODO exercise implement and test Bubble Sort in your IntArrayUtils class.
 
 ## Array Nestability and Multi-Dimensional Arrays
 
@@ -642,13 +692,13 @@ The statement above creates a `String` called `hello` and stores in it the value
 
 Where arrays use square brackets to access elements by their index, `String`s use the `charAt` method to access elements at specified indexes. From the for example, in the snippet above, `hello.charAt(1)` is an expression which would return the `'e'` from `"Hello"`.
 
-# TODO String indexing exercise
+# TODO indexing exercises
 
 ### The `substring` method
 
 A piece of a `String` containing multiple characters can be gotten with the `substring` method. The `substring` method takes two arguments: the start and end indexes of the desired substring. It returns a substring starting at the provided start index and ending with the index before the provided end index. With `hello` defined in the snippet above, `hello.substring(1, 4)` would return the substring `"ell"`; each character, starting at index `1` and before index `4`. The end index can be omitted; if it is, then all characters from the start index to the end of the `String` are included in the substring. For instance, `hello.substring(3)` returns `"lo"`: every character from index `3` to the end.
 
-# TODO `substring` exercises
+# TODO substring exercises
 
 ### The `indexOf` and `lastIndexOf` methods
 
@@ -658,7 +708,7 @@ The `String` class's `indexOf` and `lastIndexOf` methods can be used to find the
 
 There are more complex forms of each of these functions, which take extra arguments to perform more complex tasks (like, say, finding the index of the first occurrence of the designated character on or after a specified index, or finding the starting index of a designated substring). Check out the [Java 8 String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to learn more.
 
-# TODO indexOf substring phone number and name exercises
+# TODO first middle last name substring exercise
 
 ### Escape Sequences
 
@@ -678,13 +728,9 @@ Try assigning and printing each of the following `String` literals to a `String`
 
 The last one escape sequence, `\r`, denotes a **carriage return**, an antique carried from the typewriter into early (bad) encodings for text files. On typewriters, going to a new line was done with two keystrokes, one to go down a line (the line feed) and one to go back to the left side (the carriage return). Most modern editors use just a line feed `\n` to denote **both** of these. Some editors (primarily on Windows machines) still use the carriage return after the line feed, which will lead to multiple headaches throughout your years of practice as a programmer when reading data from files.
 
-# TODO escape sequence exercise
-
 ## Regular Expressions
 
 Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor that he's using (called Atom) [here](https://atom.io) if you'd like to experiment with regular expressions in it.
-
-# TODO exercises regex
 
 The video covers some universals of regular expressions. Most regular expression implementations have significantly more functionality built in. In Java, regular expressions are implemented through the `Pattern` class (imported from `java.util.regex`). You can find the documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
@@ -718,11 +764,11 @@ public class Sandbox
 
 Notice the difference between the regular expression in the program above (in the Java implementation) and the one to match phone numbers before it: all of the escapes `\` are doubled. This is because the regex is being processed twice: first as a `String` and then as a regular expression. In other words, the `String` literal `\\d{3}-\\d{3}-\\d{4}` results in a `String` storing the sequence of characters `\d{3}-\d{3}-\d{4}`, because the backslash character `\` is a metacharacter in `String`s, so it must be escaped to appear in a `String`.
 
-# TODO exercises regex in Java
+# TODO exercises regex in Java: phone number, sentence, email address, integer, float
 
 ## `ArrayList`
 
-The `ArrayList` class is essentially an array wrapped in an object with a bunch of extra methods and capabilities. You can find its documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html).
+The `ArrayList` class is essentially an array wrapped in an object with a bunch of extra methods and capabilities. Anything you can do with an `ArrayList` can also be done with arrays with enough determination, but the pile of extra functionality that the `ArrayList` class provides (and which you therefore don't need to code) can make many tasks much simpler, particularly of the size necessary for the array is unknown when it is constructed. You can find its documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html). 
 
 One of the most convenient differences between an `ArrayList` and an array is that `ArrayList`s are dynamically sized. This means that the number of elements they contain can be changed, and does not need to be specified during construction.
 
@@ -767,3 +813,9 @@ Note the differences in how the `ArrayList` is accessed compared to the standard
 # TODO ArrayList exercises
 
 # TODO Lab Tasks
+
+# Task 1 (downloaded earlier)
+
+# TIC TAC TOE
+
+# User Input validation with regex (maybe try-catch intro alongside)
