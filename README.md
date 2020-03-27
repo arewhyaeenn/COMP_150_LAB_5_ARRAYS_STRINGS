@@ -15,11 +15,13 @@ In this lab:
 
 ## Start Task 1
 
-You'll want to start by downloading the starting code for [task 1](./ArrayMethodsSrc.zip) and creating a project with the contained source files.
+You'll want to start by downloading the starting code for [task 1](./IntArrayMethods.zip) and opening the zipped project in your IDE.
 
-It contains two files: `IntArrayMethods.java` and `IntArrayMethodsClient.java`. The client is complete, but none of the methods in `IntArrayMethods.java` are complete.
+The zipped project contains two files: `IntArrayMethods.java` and `IntArrayMethodsClient.java`. The client is complete, but none of the methods in `IntArrayMethods.java` are complete.
 
-You should complete all methods in `IntArrayMethods.java` as you go through the rest of the reading. `IntArrayMethodsClient.java` is complete, and can be used to test your methods in `IntArrayMethods`. Note that in order for the tests to be valid, you should complete the methods in `IntArrayMethods.java` in the order they're presented, as some of those further down assume that those above them are correct. For instance, if your `copy` method isn't working correctly, then many of the tests for sorting methods will fail even if the sorting method itself is correct.
+There is documentation for the entire project provided in the `docs` folder; open the `index.html` file (in the `docs` folder) in any web browser to see descriptions of all contained methods as they should function when completed. Note that this documentation matches the green comments in `IntArrayMethods.java` in the `src` folder; those comments are the text from which the html documentation was generated.
+
+You should complete all methods in `IntArrayMethods.java` as you go through the reading. `IntArrayMethodsClient.java` is complete, and can be used to test your methods in `IntArrayMethods.java`. Note that in order for the tests to be valid, you should complete the methods in `IntArrayMethods.java` in the order they're presented, as some of those further down assume that those above them are correct. For instance, if your `copy` method isn't working correctly, then many of the tests for sorting methods will fail even if the sorting method itself is correct, and if your `equals` method isn't correct then most subsequent tests will fail.
 
 Remember not to do more work than necessary! Specifically, try not to repeat work; use the simpler methods in the more complex methods to avoid typing out the same loops over and over.
 
@@ -310,7 +312,7 @@ public class GradeCounter
             }
         }
 
-        System.out.println("You entered the following grades:");
+        System.out.println("\nYou entered the following grades:");
 
         for(int i = 0; i < grades.length; i++)
         {
@@ -339,6 +341,7 @@ Enter the next grade : 89
 Enter the next grade : 72
 Enter the next grade : 55
 Enter the next grade : -1
+
 You entered the following grades:
 A : 3
 B : 6
@@ -445,7 +448,7 @@ To copy an array:
 * declare and initialize another array with the same data type and length.
 * copy each element from the original array into the copy.
 
-The following class `IntArrayUtils` contains the method `copyIntArray` which takes an `int[ ] ` as an argument, and copies this array into a second array, which it returns.
+The following class `IntArrayUtils` contains the method `copyIntArray` which takes an `int[ ] ` as an argument, and copies this array into a second array, which it returns. You'll need to implement a very similar method in `IntArrayMethods.java` in the downloaded code for task 1.
 
 <a name = "IntArrayUtils"></a>
 
@@ -510,13 +513,30 @@ If you type the first snippet (which uses `+=` on `String`s in a loop) in Intell
 
 One context in which the `StringBuilder` is useful is that of creating a `String` representation of an array.
 
+`StringBuilder`'s have a lot of functionality which we haven't discussed here. Check out their documentation; search for "Java 8 StringBuilder" and the first search result should be Oracle's documentation.
+
+<a name=""></a>**[EXERCISE]()** Look up the `StringBuilder` documentation. Read the description of the `reverse` method. The description is... well, accurate, but not particularly descriptive. The first time I read this description, I wondered: Does it reverse the order of its contained `String`s, but leave the `String`s themselves in their original order, or does it reverse the order of the characters within the contained `String`s as well? The documentation is not ambiguous here; it specifies that the contained character sequence is reversed. Often documentation is either ambiguous or well-written but too brief to provide any familiarity with the tool, and this often leaves the reader with questions like this. Test the `StringBuilder`'s reverse method. Is the output of the snippet below `"WorldHello"` or `"dlroWolleH"`?
+
+```java
+StringBuilder hello = new StringBuilder();
+
+hello.append("Hello");
+hello.append("World");
+
+System.out.println(hello.reverse().toString());
+```
+
+<a name=""></a>**[EXERCISE]()** Recall that in the previous lab, we created a method which takes as input a `String` and outputs `true` if that `String` is a palindrome. We used loops to do so. Try to repeat this venture with less work by finding an appropriate method from the `StringBuilder` class in its documentation.
+
+<a name=""></a>**[SOLUTION]()** The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
+
 ### Swapping array elements
 
 When swapping array elements, there is a small problem which must be overcome. If one value is used to overwrite the other value, then the overwritten value is no longer accessible and cannot be used to overwrite the other. This problem is dealt with useing a temporary storage variable. The snippet below swaps the values at index `3` and `5` in the `numbers` array.
 
 ```java
 int[ ] numbers = {9, 8, 7, 4, 5, 6, 3, 2, 1};
-        
+
 int temp = numbers[3];
 numbers[3] = numbers[5];
 numbers[5] = temp;
@@ -670,6 +690,14 @@ int[ ][ ] numbers = {
 
 Here `numbers` is an array containing 4 `int[ ]`s which have lengths 1, 2, 4 and 2 respectively.
 
+<a name=""></a>**[EXERCISE]()** Create and test a method which iterates through a 2D `int` array like the `numbers` array above and prints every value in the array. Your implementation should make no assumptions about the number of contained 1D arrays, nor should it make any assumptions about the lengths of the contained 1D arrays. In other words, you should be able to change the "shape" of the array and your program should still work.
+
+<a name=""></a>**[EXERCISE]()** Make your test from the previous exercise more compact as follows: create a 3D `int` array, containing several 2D arrays on which to test the method to print 2D array elements. Iterate through this 3D array, testing the method on each contained 2D array.
+
+<a name=""></a>**[EXERCISE]()** Create a program which populates a $10\times10$ 2D array called `distances` such that the value stored at each index `[x][y]` is the [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions) from point $(0, 0)$ to point $(x, y)$. You should calculate the values in the array using nested `for` loops. Your program should also print values which allow you to observe whether your solution is correct or not.
+
+<a name=""></a>**[EXERCISE]()** Repeat the previous exercise, but with a 3D array. The value stored at index `[x][y][z]` should be the euclidean distance from point $(0,0,0)$ to point $(x,y,z)$.
+
 ## `String` again, and Regular Expressions
 
 We've explored some `String` methods briefly in prior labs. Here, we will explore a few of them in more detail. We will also touch on the `StringBuilder` class, which can be used to (you guessed it) build `String`s piece by piece, and regular expressions, which can be used to match patterns to more efficiently interpret and categorize `String` values.
@@ -692,13 +720,26 @@ The statement above creates a `String` called `hello` and stores in it the value
 
 Where arrays use square brackets to access elements by their index, `String`s use the `charAt` method to access elements at specified indexes. From the for example, in the snippet above, `hello.charAt(1)` is an expression which would return the `'e'` from `"Hello"`.
 
-# TODO indexing exercises
+<a name=""></a>**[EXERCISE]()** Create and test a method which takes as input a `String` value and prints each character in that `String` on its own line. For instance, when given the value `"Hello World!"` it should print out:
+
+```
+H
+e
+l
+l
+o
+ 
+W
+o
+r
+l
+d
+!
+```
 
 ### The `substring` method
 
 A piece of a `String` containing multiple characters can be gotten with the `substring` method. The `substring` method takes two arguments: the start and end indexes of the desired substring. It returns a substring starting at the provided start index and ending with the index before the provided end index. With `hello` defined in the snippet above, `hello.substring(1, 4)` would return the substring `"ell"`; each character, starting at index `1` and before index `4`. The end index can be omitted; if it is, then all characters from the start index to the end of the `String` are included in the substring. For instance, `hello.substring(3)` returns `"lo"`: every character from index `3` to the end.
-
-# TODO substring exercises
 
 ### The `indexOf` and `lastIndexOf` methods
 
@@ -708,7 +749,16 @@ The `String` class's `indexOf` and `lastIndexOf` methods can be used to find the
 
 There are more complex forms of each of these functions, which take extra arguments to perform more complex tasks (like, say, finding the index of the first occurrence of the designated character on or after a specified index, or finding the starting index of a designated substring). Check out the [Java 8 String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to learn more.
 
-# TODO first middle last name substring exercise
+<a name=""></a>**[EXERCISE]()** Create a program which prompts the user for their full name, and then prints out each individual name within their full name (correctly, whether their name has 1 part or $n$ parts). It should print out each space-separated part of of the full name. on its own line. Given `"Ryan"` it should print out `Ryan`. Given `"John Jacob Jingleheimer Schmidt"` it should print:
+
+```
+John
+Jacob
+Jingleheimer
+Schmidt
+```
+
+This can be done many ways. You could use the `substring` method alongside the `indexOf` method in a loop. You could loop through character by character deciding whether to print each new character on the current line or on the next line. The best (easiest) way, however, involves a `String` method that we haven't discussed, which will allow you to easily split up the `String` into an array of its space-separated (i.e. space-delimited) elements. I encourage you to explore the `String` documentation (search "Java 8 String" to find it). I recommend that you implement **all three** of these different ways to perform the same task.
 
 ### Escape Sequences
 
@@ -728,9 +778,32 @@ Try assigning and printing each of the following `String` literals to a `String`
 
 The last one escape sequence, `\r`, denotes a **carriage return**, an antique carried from the typewriter into early (bad) encodings for text files. On typewriters, going to a new line was done with two keystrokes, one to go down a line (the line feed) and one to go back to the left side (the carriage return). Most modern editors use just a line feed `\n` to denote **both** of these. Some editors (primarily on Windows machines) still use the carriage return after the line feed, which will lead to multiple headaches throughout your years of practice as a programmer when reading data from files.
 
+<a name=""></a>**[EXERCISE]()** Create and test program which reads the contents of a text file character-by-character and prints out the number of new line characters (`'\n'`) and tab characters (`'\t'`) individually. Testing will involve creating a text file (or many) on which to test your program, of course. You may find [this stackoverflow post](https://stackoverflow.com/questions/3402735/what-is-simplest-way-to-read-a-file-into-string) useful in figuring out how to read an entire file's contents into one `String`.
+
 ## Regular Expressions
 
 Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor that he's using (called Atom) [here](https://atom.io) if you'd like to experiment with regular expressions in it.
+
+<a name=""></a>**[EXERCISE]()** Write regular expressions to recognize each of the following patterns:
+
+1. The letter `a`, alone.
+2. The letter `a`, followed by the letter `b`.
+3. The letter `a`, repeated 1 or more times.
+4. The letter `a`, repeated 0 or more times.
+5. The letter `a`, repeated exactly 5 times.
+6. The letter `a`, repeated 3 to 5 times.
+7. The letter `a` or the letter `b`, but not both.
+8. The letter `a` followed by 4 or more of the letter `b`.
+9. The letter `a`, maybe followed by the letter `b` but maybe not.
+10. Any positive number of `a`s and `b`s, in any order.
+11. A word. (Here, a "word" is any sequence of 1 or more "word characters", denoted with `\w`).
+12. Literally any string.
+13. The word `"Captain"`, followed by a space and then any single other word.
+14. The word `"camelCase"` or the word `"UPPER_SNAKE_CASE"`.
+15. Any word written in `UPPER_SNAKE_CASE`
+16. Any word written in either `UPPER_SNAKE_CASE` or `lower_snake_case` but not a mix of the two.
+17. Any sequence of 1 or more words, with spaces between them (but not before the first one or after the last one) ending with a period.
+18. Any sequence of 1 or more words, with spaces between them (but not before the first one or after the last one), where any word except the last one might (optionally) be immediately followed (before the space) by any of the characters `;` `:` `,`, and the last word is followed by one of `.` `!` `?`.
 
 The video covers some universals of regular expressions. Most regular expression implementations have significantly more functionality built in. In Java, regular expressions are implemented through the `Pattern` class (imported from `java.util.regex`). You can find the documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
@@ -764,7 +837,7 @@ public class Sandbox
 
 Notice the difference between the regular expression in the program above (in the Java implementation) and the one to match phone numbers before it: all of the escapes `\` are doubled. This is because the regex is being processed twice: first as a `String` and then as a regular expression. In other words, the `String` literal `\\d{3}-\\d{3}-\\d{4}` results in a `String` storing the sequence of characters `\d{3}-\d{3}-\d{4}`, because the backslash character `\` is a metacharacter in `String`s, so it must be escaped to appear in a `String`.
 
-# TODO exercises regex in Java: phone number, sentence, email address, integer, float
+<a name=""></a>**[EXERCISE]()** Create, test and debug implementations for in Java for the regular expressions created in the previous exercise. Feel free to skip some of the early ones if you're certain you understand them, but be certain to do all of the more complex ones (specifically the last three).
 
 ## `ArrayList`
 
@@ -810,12 +883,85 @@ public class Sandbox
 
 Note the differences in how the `ArrayList` is accessed compared to the standard array: elements are accessed with their using the `get` method. The number of elements in the array is accessed using the `size` method. The value at a specified index can be changed using the `ArrayList`'s `set` method.
 
-# TODO ArrayList exercises
+<a name=""></a>**[EXERCISE]()** Create a program which gets user inputs in `String` form. Inputs which are `"up"`, `"down"`, `"left"` or `"right"` should be stored in an `ArrayList` until the user enters the sentinel `"END"`. Once the user enters the sentinel, your program should treat the user's input as directions for navigating a 2D grid. It should start a `Point` at coordinates $(0, 0)$ and move then move 1 unit in the specified direction for each `String` stored in the `ArrayList`. It should print each point it passes.
 
-# TODO Lab Tasks
+If the user enters the sequence:
 
-# Task 1 (downloaded earlier)
+```
+up
+right
+down
+left
+left
+END
+```
 
-# TIC TAC TOE
+then the output should be something like:
 
-# User Input validation with regex (maybe try-catch intro alongside)
+```
+start: (0, 0)
+up   : (0, 1)
+right: (1, 1)
+down : (1, 0)
+left : (0, 0)
+left : (-1, 0)
+```
+
+# Lab Tasks
+
+## Task 1
+
+You probably downloaded the [task 1 starter code](./IntArrayMethods.zip) at the beginning of the lab. If not, download it now. Complete all methods (in order) in `ArrayMethods.java`, and run `ArrayMethodsClient.java` to test.
+
+## Task 2
+
+Implement and test methods called `getIntFromUser` and `getDoubleFromUser` which use regular expressions to validate the user input `String`s before using the `Integer` and `Double` classes to parse the input. In both methods, the user should be re-prompted in an infinite loop until their input is valid.
+
+A valid `int` literal consists of the following parts:
+
+1. Optionally, a single `+` or `-` sign
+2. 1 or more digits (`0` - `9`)
+
+A valid `double` literal consists of:
+
+1. Optionally, a single `+` or `-` sign
+2. 1 or more digits
+3. A period
+4. 0 or more digits
+5. optinally, a single `d` or `D` character
+
+Optionally, when you've successfully tested and debugged both of these methods, try to do the same thing using `try` and `catch` instead of regular expressions (this will take some research).
+
+## Task 3
+
+Create a text-based game of tic-tac-toe. The board state should be stored in a $3\times3$ 2D `char` array, whose elements are `'x'`, `'o'` or `'\0'` (the null character, for board spaces that are empty). After each turn, the board should be printed in a format like this:
+
+```
+	 1   2   3
+	
+A	 o |   |   
+	--- --- ---
+B	   | x |   
+	--- --- ---
+C	 o |   | x 
+
+
+```
+
+At the beginning of the game, a random player (`x` or `o`) should be randomly assigned to go first. Then, the game should enter an infinite loop which:
+
+1. Gets the current players move.
+	* The move should be gotten in `String` form using coodrinates like `A1`, `C2`, etc, and should be validated using regular expressions.
+	* If the user's `String represents space on the board, it should then be checked to ensure that that space is not already occupied.
+	* The user should be reprompted in an infinite loop until they enter a valid move (i.e. a valid `String` input representing an empty board space.
+2. Updates the board array with the player's move.
+3. Checks if there is a winner. If so, prints who won and terminates.
+4. Checks if the board is full. If so, prints that it is a tie and terminates.
+
+Technically, this could all be done in one class consisting of just a main method. It is strongly recommended that you try to organize the steps of the game into smaller methods. Recall that you can pass the array representing the game board into methods and edit it in them, so steps 1 and 2 can be done together in a method which takes the game board and the current player (`x` or `o`) as an argument.
+
+Optionally, put a little research into `enum`s, which can help you better organize the game.
+
+Optionally, if you want to go really hard, try making a bot to play against, so you only have to make plays for one of the players. This bot can be as simple or complex as you like; it might make random moves, or it might play optimally using the [minimax strategy](https://en.wikipedia.org/wiki/Minimax), or anywhere in between.
+
+
