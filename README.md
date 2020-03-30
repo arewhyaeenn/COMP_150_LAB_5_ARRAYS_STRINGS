@@ -994,10 +994,10 @@ C	 o |   | x
 
 At the beginning of the game, a random player (`x` or `o`) should be randomly assigned to go first. Then, the game should enter an infinite loop which:
 
-1. Gets the current players move.
+1. Gets the current player's move.
 	* The move should be gotten in `String` form using coodrinates like `A1`, `C2`, etc, and should be validated using regular expressions.
-	* If the user's `String represents space on the board, it should then be checked to ensure that that space is not already occupied.
-	* The user should be reprompted in an infinite loop until they enter a valid move (i.e. a valid `String` input representing an empty board space.
+	* If the user's `String` represents space on the board, it should then be checked to ensure that that space is not already occupied.
+	* The user should be reprompted in an infinite loop until they enter a valid move (i.e. a valid `String` input representing an empty board space).
 2. Updates the board array with the player's move.
 3. Checks if there is a winner. If so, prints who won and terminates.
 4. Checks if the board is full. If so, prints that it is a tie and terminates.
