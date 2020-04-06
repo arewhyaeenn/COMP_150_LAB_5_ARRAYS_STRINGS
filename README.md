@@ -451,7 +451,7 @@ while i < length(A)
 return -1
 
 OUT:	the index of v, if A contains c
-		-1, otherwise
+	otherwise, -1
 ```
 
 ### Searching Sorted Arrays
