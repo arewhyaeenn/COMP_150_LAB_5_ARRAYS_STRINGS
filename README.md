@@ -1,7 +1,7 @@
 # COMP 150 Lab 5 - Arrays, Strings, etc
 
-Github doesn't support inline latex formulas...
-This [pdf version](./README.pdf) of the instructions will be more readable, the $latex formulas$ will be replaced with actual equations.
+Github doesn't support inline latex formulas...  
+This [pdf version](./README.pdf) of the instructions will be more readable, the $latex\_formulas$ will be replaced with actual equations.
 
 In this lab:
 
