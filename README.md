@@ -944,7 +944,7 @@ public static void print2DIntArrayElements(int[][] arrayToPrint)
 5. `a{5}`
 6. `a{3,5}`
 7. `a|b`
-8. `ab{4}b+`
+8. `ab{4}b*`
 9. `ab?`
 10. `[ab]+`
 11. `\w+`
