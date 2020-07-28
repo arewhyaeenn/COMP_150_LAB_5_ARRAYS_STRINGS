@@ -1,7 +1,4 @@
-# COMP 150 Lab 5 - Arrays, Strings, etc
-
-Github doesn't support inline latex formulas...  
-This [pdf version](./README.pdf) of the instructions will be more readable, the $latex\_formulas$ will be replaced with actual equations.
+# Object-Oriented Programming - Arrays, Strings, and Regular Expressions
 
 In this lab:
 
@@ -10,8 +7,7 @@ In this lab:
 * Passing by reference, redundant references and copying.
 * Nestability and multi-dimensional arrays.
 * Algorithms, pseudocode and implementation via searching sorting.
-* `String`s as sequences of `char`s
-* Indexing `String`s, substrings, and other `String` methods.
+* More string methods.
 * Escape sequences.
 * Regular expressions and pattern matching.
 * ArrayLists.
@@ -22,7 +18,7 @@ You'll want to start by downloading the starting code for [task 1](./IntArrayMet
 
 The zipped project contains two files: `IntArrayMethods.java` and `IntArrayMethodsClient.java`. The client is complete, but none of the methods in `IntArrayMethods.java` are complete.
 
-There is documentation for the entire project provided in the `docs` folder; open the `index.html` file (in the `docs` folder) in any web browser to see descriptions of all contained methods as they should function when completed. Note that this documentation matches the JavaDoc comments in `IntArrayMethods.java` in the `src` folder (the ones that start with `/**`); those comments are the text from which the html documentation was generated. IntelliJ can can generate documentation from such comments. To do so, go to `Tools`$\rightarrow$`Generate JavaDoc`, select the source files for the JavaDoc Scope and select any desired output directory in which the generated documentation will be placed. You don't need to do this now; the documentation for this project has already been generated. In future projects there will sometimes be JavaDoc comments included in source files, but the documentation itself will be omitted, and you can choose whether to generate the documentation or just read the comments themselves.
+There is documentation for the entire project provided in the `docs` folder; open the `index.html` file (in the `docs` folder) in any web browser to see descriptions of all contained methods as they should function when completed. Note that this documentation matches the JavaDoc comments in `IntArrayMethods.java` in the `src` folder (the ones that start with `/**`); those comments are the text from which the html documentation was generated. IntelliJ can can generate documentation from such comments. To do so, go to **Tools**, **Generate JavaDoc**, select the source files for the JavaDoc Scope and select any desired output directory in which the generated documentation will be placed. You don't need to do this now; the documentation for this project has already been generated. In future projects there will sometimes be JavaDoc comments included in source files, but the documentation itself will be omitted, and you can choose whether to generate the documentation or just read the comments themselves. 
 
 You should complete all methods in `IntArrayMethods.java` as you go through the reading. `IntArrayMethodsClient.java` is complete, and can be used to test your methods in `IntArrayMethods.java`. Note that in order for the tests to be valid, you should complete the methods in `IntArrayMethods.java` in the order they're presented, as some of those further down assume that those above them are correct. For instance, if your `copy` method isn't working correctly, then many of the tests for sorting methods will fail even if the sorting method itself is correct, and if your `equals` method isn't correct then most subsequent tests will fail.
 
@@ -50,13 +46,12 @@ The snippet above creates an array of `String`s called `dayNames` containing 7 `
 
 ### Declaration
 
-Adding square brackets `[ ]` after the data type in a declaration indicates that an array is being declared. The data type for an array if `String`s is `String[ ]`, that for an array of `int`s is `int[ ]`, and so on. Arrays can be declared to store any data type. All of the following would are valid array declarations (though some of them require importing the class stored in the array):
+Adding square brackets `[ ]` after the data type in a declaration indicates that an array is being declared. The data type for an array of `String`s is `String[ ]`, that for an array of `int`s is `int[ ]`, and so on. Arrays can be declared to store any data type. All of the following would are valid array declarations:
 
 `int[ ] testScores;`  
 `double[ ] monthlyRainfall`  
 `String[ ] dayNames;`  
-`Point[ ] corners;`  
-`MyClass[ ] arrayFilledWithMyClassInstancesWithAnObnoxiouslyLongIdentifier;`  
+`Point[ ] corners;`
 
 ### Initialization
 
@@ -76,7 +71,7 @@ When an array is declared in this fashion, its elements are all set to the defau
 
 ### Indexing
 
-Each element of an array has an integer location, called its **index**. The first element in an array has index `0`, the second has index `1`, and so on.
+Each element of an array has an integer location, called its **index**. This should be familiar after indexing strings in the previous lab. The first element in an array has index `0`, the second has index `1`, and so on.
 
 If an array is initialized as follows:
 
@@ -94,7 +89,7 @@ Array elements can be accessed with their index in square brackets; to get the v
 
 ### Traversing and the `length` attribute
 
-The number of elements in an array can be accessed using its `length` attribute with the accessor operator `.`. The length of the numbers array above is `7`, and this value can be accessed with `numbers.length`.
+The number of elements in an array can be accessed using its `length` attribute with the accessor operator `.`. The length of the numbers array above is `7`, and this value can be accessed with `numbers.length`. Note that unlike the `String` class's `length()` method, the array `length` is an attribute and does not use parenthesis for a method call.
 
 You can go through every element in an array by incrementing an index in a loop. Because the first index is `0`, the last index is 1 less than the array length, so the index must remain less than the array length. The two loops in the snippet below both print all of the elements of the `dayNames` array.
 
@@ -124,7 +119,7 @@ while (index < dayNames.length)
 
 ### Traversing with the enhanced `for` loop
 
-There is an additional type of `for` loop for iterating through sequences. The loop below does the same as the two above (it prints every value in the `dayNames` array). The `:` can be thought of as "in" as far as understanding what the loop syntax means in english.
+There is an additional type of `for` loop for iterating through sequences. The loop below does the same as the two above: it prints every value in the `dayNames` array, in order. The `:` can be thought of as "in" as far as understanding what the loop syntax means in english.
 
 ```java
 for (String name : dayNames)
@@ -159,7 +154,7 @@ for (int i = 0; i < 10; i++)
 2. After the `for` loop runs, what is the first element in the array?
 3. After the `for` loop runs, what is the last element in the array? What is its index?
 
-<a name="q3"></a>**[EXERCISE 3](#a3)** Find the error(s) in the following snippet. Fix it so it does what the comments say. What do you think an `ArrayIndexOutOfBoundException` signifies?
+<a name="q3"></a>**[EXERCISE 3](#a3)** Put the snippet below in a minimal program to test it. Find the error(s). Fix it so it does what the comments say. What do you think an `ArrayIndexOutOfBoundException` signifies?
 
 ```java
 // declare and instantiate an array with the first 8 fibonacci numbers
@@ -205,7 +200,7 @@ Two arrays containing elements of the same data type are equal if:
 
 Checking if two arrays are equal, then, requires first checking that their lengths are the equal, and then iterating through them checking that the elements at each index are equal.
 
-Note that requirement 2 above varies in meaning based on data types. With primitives, it means that the elements are equal as determined by the `==` operator. With objects it generally means that they are equal according to  the objects' `equals` method, to check if their contained data is the same, though it sometimes might mean that they are equal using the `==` operator if you want to check if the arrays reference the same objects, as opposed to objects of the same type containing the same data.
+Note that requirement 2 above varies in meaning based on data types. With primitives, it means that the elements are equal as determined by the `==` operator. With objects it generally means that they are equal according to their class's `equals` method, to check if their contained data is the same, though it sometimes might mean that they are equal using the `==` operator if you want to check if the arrays reference the same objects, as opposed to objects of the same type containing the same data.
 
 ### Arrays are passed by reference
 
@@ -224,10 +219,10 @@ System.out.println("array_1's element at index 2 : " + array_1[2]);
 System.out.println("array_2's element at index 2 : " + array_2[2]);
 ```
 
-This has many implications. The most immediate example is: if a method edits an array that was passed in as an argument, the original array is also edited! To demonstrate, consider the following example:
+This has many implications. The most immediate example is: if a method edits an array that was passed in as an argument, the original array is edited! This is not true of primitives, because they are passed by value. To demonstrate, consider the following example. If you are skeptical, run it and see for yourself.
 
 ```java
-public class Sandbox
+class Sandbox
 {
     public static void main(String[] args)
     {
@@ -264,13 +259,13 @@ public class Sandbox
         }
     }
 
-    public static void incrementInt(int integer)
+    static void incrementInt(int integer)
     {
         // increment the integer
         integer++;
     }
 
-    public static void incrementIntArrayElements(int[] integer_array)
+    static void incrementIntArrayElements(int[] integer_array)
     {
         // go through the array, incrementing each element
         for (int i = 0; i < integer_array.length; i++)
@@ -285,7 +280,7 @@ public class Sandbox
 
 Often, it is necessary to create an edited version of an array while keeping the original unedited. Because arrays are passed by reference, and not by value, it is necessary to copy the original array and then edit the copy.
 
-For instance, when we sort an array, we must choose to do so either **in place** by rearranging the original array to be sorted, or **not in place** by creating a copy to sort and leaving the original unsorted.
+For instance, when we sort an array, we must choose to do so either **in place** by rearranging the original array, or **not in place** by creating a copy to sort and leaving the original unsorted.
 
 To copy an array:
 
@@ -353,11 +348,13 @@ System.out.println("You entered: " + words.toString());
 
 This does not help the memory allocation and deallocation issue in terms of the **number** of allocations, as each "chunk" of the final `String` mush have space allocated, but it does make the **size** of the allocated chunks smaller, which makes allocation easier. It also saves us from repeatedly copying the first word in the `String` each time another word is added to the end.
 
-If you type the first snippet (which uses `+=` on `String`s in a loop) in IntelliJ, the `+=` operator will be highlighted in yellow. Mousing over this highlight will reveal the warning `String concatenation '+=' in loop` along with a suggestion (in blue) to use the `StringBuilder` class instead. Clicking this suggestion will change the snippet to one very similar to the second one above, which uses `StringBuilder`.
+If you type the first snippet (which uses `+=` on `String`s in a loop), some IDEs will highlight the `+=` operator. Mousing over this highlight will reveal the warning `String concatenation '+=' in loop` along with a suggestion (in blue) to use the `StringBuilder` class instead. Clicking this suggestion will change the snippet to one very similar to the second one above, which uses `StringBuilder`.
+
+This may seem like a trivial difference, but you'll learn that it is the difference between linear and quadratic time scaling when you take a course an the analysis of algorithms. If the final `String` is very long, then the difference in time spent copying is enormous.
 
 One context in which the `StringBuilder` is useful is that of creating a `String` representation of an array.
 
-`StringBuilder`'s have a lot of functionality which we haven't discussed here. Check out their documentation; search for "Java 8 StringBuilder" and the first search result should be Oracle's documentation.
+`StringBuilder`'s have a lot of functionality which we haven't discussed here. Check out the [`StringBuilder` API](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html).
 
 <a name="q6"></a>**EXERCISE 6** Look up the `StringBuilder` documentation. Read the description of the `reverse` method. The description is... well, accurate, but not particularly descriptive. The first time I read this description, I wondered: Does it reverse the order of its contained `String`s, but leave the `String`s themselves in their original order, or does it reverse the order of the characters within the contained `String`s as well? The documentation is not ambiguous here; it specifies that the contained character sequence is reversed. Often documentation is either ambiguous or well-written but too brief to provide any familiarity with the tool, and this often leaves the reader with questions like this. Test the `StringBuilder`'s reverse method. Is the output of the snippet below `"WorldHello"` or `"dlroWolleH"`?
 
@@ -370,11 +367,11 @@ hello.append("World");
 System.out.println(hello.reverse().toString());
 ```
 
-<a name="q7"></a>**[EXERCISE 7](#a7)** Recall that in the previous lab, we created a method which takes as input a `String` and outputs `true` if that `String` is a palindrome. We used loops to do so. Try to repeat this venture with less work by finding an appropriate method from the `StringBuilder` class in its documentation.
+<a name="q7"></a>**[EXERCISE 7](#a7)** Recall that in the previous lab, we created a method which takes as input a `String` and outputs `true` if that `String` is a palindrome. We used loops to do so. Try to repeat this venture with less work by using an appropriate `StringBuilder` method.
 
 ### Swapping array elements
 
-When swapping array elements, there is a small problem which must be overcome. If one value is used to overwrite the other value, then the overwritten value is no longer accessible and cannot be used to overwrite the other. This problem is dealt with useing a temporary storage variable. The snippet below swaps the values at index `3` and `5` in the `numbers` array.
+When swapping array elements, there is a small problem which must be overcome. If one value is used to overwrite the other value, then the overwritten value is no longer accessible and cannot be used to overwrite the other. This problem is dealt with using a temporary storage variable. The snippet below swaps the values at index `3` and `5` in the `numbers` array.
 
 ```java
 int[ ] numbers = {9, 8, 7, 4, 5, 6, 3, 2, 1};
@@ -412,9 +409,9 @@ for i in [0, n-2]
 OUT: arr has been sorted in non-decreasing order
 ```
 
-Notice that the algorithm above is not written in Java, and will not compile in Java. It is instead written in a less formal format for humans to read. It is written in my preferred style of pseudocode. Blocks, denoted in Java with curly braces `{}` in Java, are denoted via indentation above; you can tell what is "inside" the outer loop because its contents are indented below it. Pseudocode often uses a mix of notations from programming and mathematics. In the pseudocode above, the pairs in brackets `[0, n-1]` and `[i, n]` denote closed intervals. In general, these would be closed intervals of real numbers, but because we're using the elements of these intervals as indexes we know they must be integers---this does not need to be specified as formally as it would in an actual program, because the pseudocode is intended to be read by humans. This is most apparent in the last line of the outer loop, which is written out as a sentence.
+Notice that the algorithm above is not written in Java, and will not compile in Java. It is instead written in a less formal format for humans to read. It is written in my preferred style of pseudocode. Blocks, denoted in Java with curly braces `{}` in Java, are denoted via indentation above; you can tell what is "inside" the outer loop because its contents are indented below it. Pseudocode often uses a mix of notations from programming and mathematics. In the pseudocode above, the pairs in brackets `[0, n-1]` and `[i, n]` denote closed intervals. In general, these would be closed intervals of real numbers, but because we're using the elements of these intervals as indexes we know they must be integers---this does not need to be specified as formally as it would in an actual program, because the pseudocode is intended to be read by humans who have intuition with respect to what values can be used to index an array. This is most apparent in the last line of the outer loop, which is written out as a sentence.
 
-The structure of the pseudocode is arbitrary; I simply wrote it in a way that make sense to me. Pseudocode can really be any unambiguous sequence of instructions. Any recipe which describe how and when to add ingredients is arguably pseudocode, so long as it is sufficiently unambiguous. Usually, when instructions are referred to as pseudocode, it is in the context of either mathematics or programming, though, and in these situations psuedocode usually looks like a mix of code and english describing an algorithm independent of any programming language.
+The structure of the pseudocode is arbitrary; I simply wrote it in a way that make sense to me.
 
 When an algorithm is translated from pseudocode into a programming language, this is called an **implementation** of the algorithm. Below is an implementation of Selection Sort for use on `int[ ]`s in Java. 
 
@@ -440,7 +437,7 @@ public static void selectionSort(int[ ] arrayToSort)
 
 ### Searching Unsorted Arrays
 
-It is sometimes necessary to search an array for a specified value. If the value is there, it's index is generally what is returned. If the array isn't sorted, this can be a painfully slow procedure, as it is necessary to simply iterate through the array, one element at a time, looking for the specified value. This is called a sequential search:
+It is sometimes necessary to search an array for a specified value. If the value is there, its index is generally what is returned. If the array isn't sorted, this can be a painfully slow procedure, as it is necessary to simply iterate through the array, one element at a time, looking for the specified value. This is called a sequential search:
 
 ```
 Sequential Search
@@ -453,20 +450,19 @@ while i < length(A)
 
 return -1
 
-OUT:	the index of v, if A contains c
+OUT:	the index of v, if A contains v
 	otherwise, -1
 ```
 
 ### Searching Sorted Arrays
 
-There are a variety of ways to search a sorted array for a specified value, all faster than sequential search. Check out [this video](https://www.youtube.com/watch?v=j5uXyPJ0Pew) on binary and sequential search. Note that the pseudo code written in the video looks more like Java than mine, but it is still pseudocode, not Java.
-
+There are a variety of ways to search a sorted array for a specified value which are faster than sequential search. Check out [this video](https://www.youtube.com/watch?v=j5uXyPJ0Pew) on binary and sequential search. Note that the pseudo code written in the video looks more like Java than mine, but it is still pseudocode, not Java.
 
 ### Bubble Sort
 
 Watch [this video](https://www.youtube.com/watch?v=xli_FI7CuzA) on Bubble Sort.
 
-<a name="q8"></a>**[EXERCISE 8](#a8)** Write pseudocode for Bubble Sort.
+<a name="q8"></a>**[EXERCISE 8](#a8)** Write pseudocode for Bubble Sort. You can use the pseudocode from the video as an example, but try to write it in a format that you like!
 
 ## Array Nestability and Multi-Dimensional Arrays
 
@@ -489,7 +485,7 @@ int[ ][ ] multiplicationTable = {
 
 Here, each index of the `multiplicationTable` is a **sub-array** (i.e. a row) in the 2D array above; `multiplicationTable[0]` is `{0,  0,  0,  0,  0,  0,  0,  0,  0,  0}`, `multiplicationTable[3]` is `{0,  3,  6,  9, 12, 15, 18, 21, 24, 27}`, and so on.
 
-These sub-arrays are, themselves, arrays, so they can be indexed; `multiplicationTable[0][0]` is the first element of `multiplicationTable[0]`, i.e. `1`. `multiplicationTable[5][6]` is `30`.
+These sub-arrays are, themselves, arrays, so they can be indexed; `multiplicationTable[0][0]` is the first element of `multiplicationTable[0]`, i.e. `0`. `multiplicationTable[5][6]` is `30`.
 
 Note that `multiplicationTable` has 10 sub-arrays, each of which contain 10 integers. The same array can be made by first declaring an array with default values (`0`s) and then assigning new values in a nested loop like this:
 
@@ -505,7 +501,7 @@ for (int i = 0; i < 10; i++)
 }
 ```
 
-The above examples are 2 dimensional (notice the 2 sets of brackets in the data type `int[ ][ ]`). Arrays can be made with any desired dimension.
+The above examples are 2 dimensional (notice the 2 sets of brackets in the data type `int[ ][ ]`). Arrays can be made with any desired dimension. A 3-dimensional int array would be declared with type `int[][][]`, and its elements would be 2-dimensional arrays.
 
 In a multi-dimensional array, sub-arrays do not need to all be the same shape. For instance, the following is a completely valid array initialization:
 
@@ -522,19 +518,19 @@ Here `numbers` is an array containing 4 `int[ ]`s which have lengths 1, 2, 4 and
 
 <a name="q9"></a>**[EXERCISE 9](#a9)** Create and test a method which iterates through a 2D `int` array like the `numbers` array above and prints every value in the array. Your implementation should make no assumptions about the number of contained 1D arrays, nor should it make any assumptions about the lengths of the contained 1D arrays. In other words, you should be able to change the "shape" of the array and your program should still work.
 
-<a name="q10"></a>**EXERCISE 10** Make your test from the previous exercise more compact as follows: create a 3D `int` array, containing several 2D arrays on which to test the method to print 2D array elements. Iterate through this 3D array, testing the method on each contained 2D array.
+<a name="q10"></a>**[EXERCISE 10](#a10)** Make your test from the previous exercise more compact as follows: create a 3D `int` array, containing several 2D arrays on which to test the method to print 2D array elements. Iterate through this 3D array, testing the method on each contained 2D array.
 
-<a name="q11"></a>**EXERCISE 11** Create a program which populates a $10\times10$ 2D array called `distances` such that the value stored at each index `[x][y]` is the [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions) from point $(0, 0)$ to point $(x, y)$. You should calculate the values in the array using nested `for` loops. Your program should also print values which allow you to observe whether your solution is correct or not.
+<a name="q11"></a>**EXERCISE 11** Create a program which populates a $10\times10$ 2D array called `distances` such that the value stored at each index `[x][y]` is the [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions) from point $(0, 0)$ to point *(x, y)*. You should calculate the values in the array using nested `for` loops. Your program should also print values which allow you to observe whether your solution is correct or not.
 
-<a name="q12"></a>**EXERCISE 12** Repeat the previous exercise, but with a 3D array. The value stored at index `[x][y][z]` should be the euclidean distance from point $(0,0,0)$ to point $(x,y,z)$.
+<a name="q12"></a>**EXERCISE 12** Repeat the previous exercise, but with a 3D array. The value stored at index `[x][y][z]` should be the euclidean distance from point *(0,0,0)* to point *(x,y,z)*.
 
 ## `String` again, and Regular Expressions
 
-We've explored some `String` methods briefly in prior labs. Here, we will explore a few of them in more detail. We will also touch on the `StringBuilder` class, which can be used to (you guessed it) build `String`s piece by piece, and regular expressions, which can be used to match patterns to more efficiently interpret and categorize `String` values.
+We've explored some `String` methods briefly in prior labs. Here, we will explore a few of them in more detail. We will also touch on the `StringBuilder` class, which can be used to (you guessed it) build `String`s piece by piece. Finally, we'll discuss regular expressions, which can be used to match patterns to more efficiently interpret, categorize, or validate `String` values.
 
 ### `String`s are sequences
 
-Much like arrays, `String`s are sequences whose elements (`char`s) can be accessed with their index.
+As discussed in the previous lab, `String`s are sequences whose elements (`char`s) can be accessed with their index.
 
 Consider the following snippet:
 
@@ -550,36 +546,17 @@ The statement above creates a `String` called `hello` and stores in it the value
 
 Where arrays use square brackets to access elements by their index, `String`s use the `charAt` method to access elements at specified indexes. From the for example, in the snippet above, `hello.charAt(1)` is an expression which would return the `'e'` from `"Hello"`.
 
-<a name="q13"></a>**EXERCISE 13** Create and test a method which takes as input a `String` value and prints each character in that `String` on its own line. For instance, when given the value `"Hello World!"` it should print out:
-
-```
-H
-e
-l
-l
-o
- 
-W
-o
-r
-l
-d
-!
-```
-
-### The `substring` method
-
-A piece of a `String` containing multiple characters can be gotten with the `substring` method. The `substring` method takes two arguments: the start and end indexes of the desired substring. It returns a substring starting at the provided start index and ending with the index before the provided end index. With `hello` defined in the snippet above, `hello.substring(1, 4)` would return the substring `"ell"`; each character, starting at index `1` and before index `4`. The end index can be omitted; if it is, then all characters from the start index to the end of the `String` are included in the substring. For instance, `hello.substring(3)` returns `"lo"`: every character from index `3` to the end.
-
 ### The `indexOf` and `lastIndexOf` methods
 
 The `String` class's `indexOf` and `lastIndexOf` methods can be used to find the index of specified characters or substrings. `indexOf` is polymorphic. Its simplest form takes a `char` as an argument, and outputs the index of the first occurrence of that `char` in the `String` calling it, or `-1` if there no occurence of the designated character. For instance, `hello.indexOf('l')` returns `2`, because `2` is the index of the first `'l'` character.
 
 `lastIndexOf` is very similar to `indexOf`, and the difference in behavior is implied by its name. What does `hello.lastIndexOf('l')` return with `hello` defined as above?
 
-There are more complex forms of each of these functions, which take extra arguments to perform more complex tasks (like, say, finding the index of the first occurrence of the designated character on or after a specified index, or finding the starting index of a designated substring). Check out the [Java 8 String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to learn more.
+There are more complex forms of each of these functions, which take extra arguments to perform more complex tasks (like, say, finding the index of the first occurrence of the designated character on or after a specified index, or finding the starting index of a designated substring). Check out the [Java 8 String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to learn more; simply search "indexOf" to find all of the different ways the `indexOf` method can be used.
 
-<a name="q14"></a>**EXERCISE 14** Create a program which prompts the user for their full name, and then prints out each individual name within their full name (correctly, whether their name has 1 part or $n$ parts). It should print out each space-separated part of of the full name. on its own line. Given `"Ryan"` it should print out `Ryan`. Given `"John Jacob Jingleheimer Schmidt"` it should print:
+<a name="q13"></a>**[EXERCISE 13](#a13)** Write a program which prompts the user for their name in the form "first middle last". Your program should assume that the three names are separated by spaces, and do not contains spaces. Use the `indexOf`, `lastIndexOf`, and `substring` methods to print each of the three names separately (without spaces). Use the `Scanner`'s `nextLine` method to get their full name as one string; using `next` three times, instead, is cheating.
+
+<a name="q14"></a>**[EXERCISE 14](#a14)** Create a program which prompts the user for their full name, and then prints out each individual name within their full name (whether their name has 1 part or *n* parts). It should print out each space-separated part of of the full name, on its own line. Given `"Ryan"` it should print out `Ryan`. Given `"John Jacob Jingleheimer Schmidt"` it should print:
 
 ```
 John
@@ -588,13 +565,13 @@ Jingleheimer
 Schmidt
 ```
 
-This can be done many ways. You could use the `substring` method alongside the `indexOf` method in a loop. You could loop through character by character deciding whether to print each new character on the current line or on the next line. The best (easiest) way, however, involves a `String` method that we haven't discussed, which will allow you to easily split up the `String` into an array of its space-separated (i.e. space-delimited) elements. I encourage you to explore the `String` documentation (search "Java 8 String" to find it). I recommend that you implement **all three** of these different ways to perform the same task.
+This can be done many ways. You could use the `substring` method alongside the `indexOf` method in a loop. You could loop through character by character deciding whether to print each new character on the current line or on the next line (or to not print it at all, if it's a space) though this method is somewhat tedious. The best (easiest) way, however, involves a `String` method that we haven't discussed, which will allow you to easily split up the `String` into an array of its space-separated (i.e. space-**delimited**) elements. I encourage you to explore the [`String` API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to find this method. I recommend that you implement **all three** of these different ways to perform the same task. There is a wrong way to do this: like in the previous exercise, using the `Scanner`'s `next` method to get each name individually is cheating.
 
 ### Escape Sequences
 
 In a `String` literal, the backslash `\` is used to start **escape sequences**. Escape sequences are sequences of characters that have a different meaning than the literal sequence. They are often used to represent "special" characters (like newline `'\n'` and tab `'\t'`). They are also used to ensure that other characters are interpretted literally, when they would otherwise have some additional meaning in context. For instance, putting the double quote `'"'` character in a `String` literal requires a backslash, otherwise the double quote character **ends the string**. 
 
-Try assigning and printing each of the following `String` literals to a `String` variable and printing them (if possible). Try to figure out what each of the escape sequences means, which examples below are invalid and why they're invalid.
+<a name="q15"></a>**EXERCISE 15** Try assigning each of the following `String` literals to a `String` variable and printing them (if possible). Try to figure out what each of the escape sequences means, which examples below are invalid and why they're invalid.
 
 `"She said "Hello""`  
 `"She said \"Hello\""`  
@@ -603,20 +580,20 @@ Try assigning and printing each of the following `String` literals to a `String`
 `"\"`  
 `"\\"`  
 `"\\\\"`  
-`"\\\\\\"`  
-`"Not this\rThis only but why?"`  
+`"\\ \\ \\"`   
+`"Not this\rOnly this, but why?"`  
 
-The last one escape sequence, `\r`, denotes a **carriage return**, an antique carried from the typewriter into early (bad) encodings for text files. On typewriters, going to a new line was done with two keystrokes, one to go down a line (the line feed) and one to go back to the left side (the carriage return). Most modern editors use just a line feed `\n` to denote **both** of these. Some editors (primarily on Windows machines) still use the carriage return after the line feed, which will lead to multiple headaches throughout your years of practice as a programmer when reading data from files.
+The escape sequence `\r` denotes a **carriage return**, an antique carried from the typewriter into early (bad) encodings for text files. On typewriters, going to a new line was done with two keystrokes, one to go down a line (the line feed) and one to go back to the left side (the carriage return). Most modern editors use just a line feed `\n` to denote **both** of these. Some editors (primarily on Windows) still use the carriage return after the line feed, which will lead to multiple headaches throughout your years of practice as a programmer when reading data from files. In the last string literal above, the `\r` causes the feed to go back to the beginning of the line, effectively deleting everything preceeding it on that line.
 
-<a name="q15"></a>**EXERCISE 15** Create and test program which reads the contents of a text file character-by-character and prints out the number of new line characters (`'\n'`) and tab characters (`'\t'`) individually. Testing will involve creating a text file (or many) on which to test your program, of course. You may find [this stackoverflow post](https://stackoverflow.com/questions/3402735/what-is-simplest-way-to-read-a-file-into-string) useful in figuring out how to read an entire file's contents into one `String`.
+<a name="q16"></a>**EXERCISE 16** Create and test program which reads the contents of a text file character-by-character and prints out the number of new line characters (`'\n'`) and tab characters (`'\t'`) individually. Testing will involve creating a text file (or many) on which to test your program, of course. You may find [this stackoverflow post](https://stackoverflow.com/questions/3402735/what-is-simplest-way-to-read-a-file-into-string) useful in figuring out how to read an entire file's contents into one `String`.
 
 ## Regular Expressions
 
-Brace yourself. Regular expressions (often called regex) are **useful**, but they're also **tedious** and **essentially unreadable**. Be patient with this section; taking the time here to make sure you understand how to read and write these expressions (which often look like heiroglyphics) will provide an unmatched way to parse user inputs, among other things.
+Brace yourself. Regular expressions (often called **regex**) are incredibly useful, but they're also tedious and essentially unreadable. Be patient with this section; taking the time here to make sure you understand how to read and write these expressions (which often look like hieroglyphics) will provide an unmatched way to parse and validate user inputs, among other things.
 
-Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor that he's using (called Atom) [here](https://atom.io) if you'd like to experiment with regular expressions in it.
+Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor used in the video (called Atom) [here](https://atom.io) if you'd like to follow along with the video's experimentation with regular expressions.
 
-<a name="q16"></a>**[EXERCISE 16](#q16)** Write regular expressions to recognize each of the following patterns:
+<a name="q17"></a>**[EXERCISE 17](#a17)** Write regular expressions to recognize each of the following patterns:
 
 1. The letter `a`, alone.
 2. The letter `a`, followed by the letter `b`.
@@ -639,12 +616,12 @@ Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular e
 
 The video covers some universals of regular expressions. Most regular expression implementations have significantly more functionality built in. In Java, regular expressions are implemented through the `Pattern` class (imported from `java.util.regex`). You can find the documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
-The regular expression `\d{3}-\d{3}-\d{4}` could be used to match phone numbers in the form **XXX-XXX-XXXX**. In order to use this regular expression in Java, we need to create a member of the `Pattern` class using the regular expression in `String` form. The program below prompts the user for a phone number in a specified format, and then checks if the input matches the pattern:
+The regular expression `\d{3}-\d{3}-\d{4}` could be used to match phone numbers in the form `XXX-XXX-XXXX`. In order to use this regular expression in Java, we need to create a member of the `Pattern` class using the regular expression in `String` form. The program below prompts the user for a phone number in a specified format, and then checks if the input matches the pattern:
 
 ```java
 import java.util.Scanner;
 
-public class Sandbox
+class Sandbox
 {
     public static void main(String[] args)
     {
@@ -669,11 +646,11 @@ public class Sandbox
 
 Notice the difference between the regular expression in the program above (in the Java implementation) and the one to match phone numbers before it: all of the escapes `\` are doubled. This is because the regex is being processed twice: first as a `String` and then as a regular expression. In other words, the `String` literal `\\d{3}-\\d{3}-\\d{4}` results in a `String` storing the sequence of characters `\d{3}-\d{3}-\d{4}`, because the backslash character `\` is a metacharacter in `String`s, so it must be escaped to appear in a `String`.
 
-<a name="q17"></a>**EXERCISE 17** Create, test and debug implementations for in Java for the regular expressions created in the previous exercise. Feel free to skip some of the early ones if you're certain you understand them, but be certain to do all of the more complex ones (specifically the last three).
+<a name="q18"></a>**EXERCISE 18** Create, test and debug implementations for in Java for the regular expressions created in the previous exercise. Feel free to skip some of the early ones if you're certain you understand them, but be certain to do all of the more complex ones (specifically the last three).
 
 ## `ArrayList`
 
-The `ArrayList` class is essentially an array wrapped in an object with a bunch of extra methods and capabilities. Anything you can do with an `ArrayList` can also be done with arrays with enough determination, but the pile of extra functionality that the `ArrayList` class provides (and which you therefore don't need to code) can make many tasks much simpler, particularly of the size necessary for the array is unknown when it is constructed. You can find its documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html). 
+The `ArrayList` class is essentially an array wrapped in an object with a bunch of extra methods and capabilities. Anything you can do with an `ArrayList` can also be done with arrays with enough determination, but the pile of extra functionality that the `ArrayList` class provides (and which you therefore don't need to implement) can make many tasks much simpler, particularly if the size necessary for the array is unknown when it is constructed. You can find its documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html). 
 
 One of the most convenient differences between an `ArrayList` and an array is that `ArrayList`s are dynamically sized. This means that the number of elements they contain can be changed, and does not need to be specified during construction.
 
@@ -687,7 +664,7 @@ The example below shows how to instantiate, and `ArrayList` with no elements, ho
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Sandbox
+class Sandbox
 {
     public static void main(String[] args)
     {
@@ -715,7 +692,7 @@ public class Sandbox
 
 Note the differences in how the `ArrayList` is accessed compared to the standard array: elements are accessed with their using the `get` method. The number of elements in the array is accessed using the `size` method. The value at a specified index can be changed using the `ArrayList`'s `set` method.
 
-<a name="q18"></a>**EXERCISE 18** Create a program which gets user inputs in `String` form. Inputs which are `"up"`, `"down"`, `"left"` or `"right"` should be stored in an `ArrayList` until the user enters the sentinel `"END"`. Once the user enters the sentinel, your program should treat the user's input as directions for navigating a 2D grid. It should start a `Point` at coordinates $(0, 0)$ and move then move 1 unit in the specified direction for each `String` stored in the `ArrayList`. It should print each point it passes.
+<a name="q19"></a>**EXERCISE 19** Create a program which gets user inputs in `String` form. Inputs which are `"up"`, `"down"`, `"left"` or `"right"` should be stored in an `ArrayList` until the user enters the sentinel `"END"`. Once the user enters the sentinel, your program should treat the user's input as directions for navigating a 2D grid. It should start a `Point` at coordinates *(0, 0)* and move then move 1 unit in the specified direction for each `String` stored in the `ArrayList`. It should print each point it passes. Inputs which are none of the four directions and also not the sentinel should be ignored; no sequence of user inputs should cause the program to crash. This validation can be done with `if`/`else` cascades or with regular expressions.
 
 If the user enters the sequence:
 
@@ -741,22 +718,22 @@ left : (-1, 0)
 
 ## Answers to Selected Exercises
 
-<a name="a1"></a>**[SOLUTION 1](#q1)**
+### <a name="a1"></a>**[EXERCISE 1](#q1)**
 
 1. The `length` of `myIntArray` is `5`; it has 5 elements.
 2. The smallest index in any array is `0`. Indexing starts at `0`.
 3. The value stored at index `2` in `myIntArray` is `5`. Index `0` contains `1` and index `1` contains `3`.
 4. The largest index is always 1 less than the length, because indexing starts at `0`. Thus, the largest index in `myIntArray` is `4`.
 
-<a name="a2"></a>**[SOLUTION 2](#q2)**
+### <a name="a2"></a>**[EXERCISE 2](#q2)**
 
-1. Before the `for` loop runs, `myDoubleArray` contains 10 of the default `double` value, which is `0.0`.
-2. After the `for` loop runs, the first element in the array (at index `0`) is `Math.sqrt(0)`, which is `0.0`.
-3. After the `for` loop runs, the last element in the array (at index `9`) is `Math.sqrt(9)`, which is `3.0`.
+1. Before the `for` loop runs, `myDoubleArray` contains 10 of the default `double` value, which is `0.0d`.
+2. After the `for` loop runs, the first element in the array (at index `0`) is `Math.sqrt(0.0d)`, which is `0.0d`.
+3. After the `for` loop runs, the last element in the array (at index `9`) is `Math.sqrt(9.0d)`, which is `3.0d`.
 
-<a name="a3"></a>**[SOLUTION 3](#q3)**
+### <a name="a3"></a>**[EXERCISE 3](#q3)**
 
-An `ArrayIndexOutOfBoundsException` signifies that an array (or some other indexable object) was accessed with an invalid index. The index might be negative, or it might be larger than the largest index in the array.
+An `ArrayIndexOutOfBoundsException` signifies that an array (or some other indexable object) was accessed with an invalid index. The index might be negative, or it might be larger than the largest index in the array. In this case, the index that was out of bounds was equal to the length of the array, i.e. 1 larger than the largest index.
 
 ```java
 // declare and instantiate an array with the first 8 fibonacci numbers
@@ -769,10 +746,10 @@ for (int i = 0; i < myIntArray.length; i++)
 }
 ```
 
-<a name="a4"></a>**[SOLUTION 4](#q4)**
+### <a name="a4"></a>**[EXERCISE 4](#q4)**
 
 ```java
-public class Sandbox
+class Sandbox
 {
     public static void main(String[] args)
     {
@@ -804,14 +781,14 @@ public class Sandbox
 }
 ```
 
-<a name="a5"></a>**[SOLUTION 5](#q5)** 
+### <a name="a5"></a>**[EXERCISE 5](#q5)** 
  
 Program:
 
 ```java
 import java.util.Scanner;
 
-public class GradeCounter
+class GradeCounter
 {
     public static void main(String[] args)
     {
@@ -899,9 +876,9 @@ F : 1
 Process finished with exit code 0
 ```
 
-<a name="a7"></a>**[SOLUTION 7](#q7)** The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
+<a name="a7"></a>**[EXERCISE 7](#q7)** The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
 
-<a name="a8"></a>**[SOLUTION 8](#q8)**
+### <a name="a8"></a>**[EXERCISE 8](#q8)**
 
 Here's some pseudocode for BubbleSort. Your style of pseudocode does not need to match mine, as long as it is complete, exact and unambiguous.
 
@@ -917,12 +894,12 @@ for i in [1, n-1]
 OUT: arr is sorted
 ```
 
-<a name="a9"></a>**[SOLUTION 9](#q9)**
+### <a name="a9"></a>**[EXERCISE 9](#q9)**
 
 The method below will print out a 2D int array as described.
 
 ```java
-public static void print2DIntArrayElements(int[][] arrayToPrint)
+static void print2DIntArrayElements(int[][] arrayToPrint)
 {
     for (int i = 0; i < arrayToPrint.length; i++)
     {
@@ -935,7 +912,142 @@ public static void print2DIntArrayElements(int[][] arrayToPrint)
 }
 ```
 
-<a name="q16"></a>**[SOLUTION 16](#q16)**
+### <a name="a10"></a>**[EXERCISE 10](#q10)**
+
+The following program will work. Try running it, and checking its output.
+
+```java
+class ArrayCrawlingClient
+{
+    public static void main(String[] args)
+    {
+        int [][][] testArrays = { // Start of 3D array
+                { // Start of 1st 2D array
+                        { 1, 2, 3 },
+                        { 4 },
+                        { 5, 6, 7, 8},
+                        { 9 }
+                },
+
+                { // Start of 2nd 2D array
+                        { 10 }
+                },
+
+                { // Start of 3rd 2D array
+                        { 11, 12 },
+                        { 13, 14, 15, 16, 17 }
+                },
+
+                { // Start of 4th 2D array (empty)
+
+                }
+        };
+
+        for (int i = 0; i < testArrays.length; i++)
+        {
+            System.out.println("**PRINTING 2D ARRAY AT INDEX " + i);
+            print2DIntArrayElements(testArrays[i]);
+        }
+    }
+
+    static void print2DIntArrayElements(int[][] arrayToPrint)
+    {
+        for (int i = 0; i < arrayToPrint.length; i++)
+        {
+            System.out.println("Print sub-array at index " + i);
+            for (int j = 0; j < arrayToPrint[i].length; j++)
+            {
+                System.out.println("\t" + arrayToPrint[i][j]);
+            }
+        }
+    }
+}
+```
+
+### <a name="a13"></a>**[EXERCISE 13](#q13)**
+
+Program:
+
+```java
+import java.util.Scanner;
+
+class ThreeNameClient
+{
+    public static void main(String[] args)
+    {
+        Scanner console = new Scanner(System.in);
+
+        System.out.print("Enter a full name in the form \"first middle last\" > ");
+        String fullName = console.nextLine();
+
+        String firstName = fullName.substring(0, fullName.indexOf(' '));
+        String middleName = fullName.substring(fullName.indexOf(' ')+1, fullName.lastIndexOf(' '));
+        String lastName = fullName.substring(fullName.lastIndexOf(' ')+1);
+
+        System.out.println(firstName);
+        System.out.println(middleName);
+        System.out.println(lastName);
+    }
+}
+```
+
+Sample Run:
+
+```
+Enter a full name in the form "first middle last" > Ryan Steven McIntyre
+Ryan
+Steven
+McIntyre
+
+Process finished with exit code 0
+```
+
+### <a name="a14"></a>**[EXERCISE 14](#q14)**
+
+Below is one of the possibilities. Try to do the other two!
+
+```java
+import java.util.Scanner;
+
+class GeneralNameClient
+{
+    public static void main(String[] args)
+    {
+        Scanner console = new Scanner(System.in);
+
+        System.out.print("Enter a full name > ");
+        String fullName = console.nextLine();
+
+        int startIndex = 0;
+        int endIndex = fullName.indexOf(' ');
+
+        // print all names except the last one
+        while (endIndex != -1)
+        {
+            System.out.println(fullName.substring(startIndex, endIndex));
+            startIndex = endIndex+1;
+            endIndex = fullName.indexOf(' ', startIndex);
+        }
+
+        // print the last name
+        System.out.println(fullName.substring(startIndex));
+    }
+}
+```
+
+One sample run (not enough to ensure it works):
+
+```
+Enter a full name > John Jacob Jingleheimer Schmidt
+John
+Jacob
+Jingleheimer
+Schmidt
+
+Process finished with exit code 0
+```
+
+### <a name="a17"></a>**[EXERCISE 17](#q17)**
 
 1. `a`
 2. `ab`
@@ -956,7 +1068,7 @@ public static void print2DIntArrayElements(int[][] arrayToPrint)
 17. `\w+( \w+)*\.`
 18. `\w+([,:;]? \w+)*[.!?]`
 
-# Lab Tasks
+# Lab Assignment
 
 ## Task 1
 
@@ -964,12 +1076,15 @@ You probably downloaded the [task 1 starter code](./IntArrayMethods.zip) at the 
 
 ## Task 2
 
-Implement and test methods called `getIntFromUser` and `getDoubleFromUser` which use regular expressions to validate the user input `String`s before using the `Integer` and `Double` classes to parse the input. In both methods, the user should be re-prompted in an infinite loop until their input is valid.
+Implement and test methods called `getIntFromUser` and `getDoubleFromUser` which use regular expressions to validate a user input `String`s before using the `Integer` and `Double` classes to parse the input. In both methods, the user should be re-prompted in an infinite loop until their input is valid, at which point it should be converted to the appropriate primitive type and returned.
 
 A valid `int` literal consists of the following parts:
 
 1. Optionally, a single `+` or `-` sign
-2. 1 or more digits (`0` - `9`)
+2. A single digit (`1` - `9`)
+3. Zero or more additional digits (`0` - `9`)
+
+In Java, integer literals can start with 0, but only if they are in octal; here we are simply getting decimal responses, so the input should not start with 0.
 
 A valid `double` literal consists of:
 
@@ -979,11 +1094,11 @@ A valid `double` literal consists of:
 4. 0 or more digits
 5. optinally, a single `d` or `D` character
 
-Optionally, when you've successfully tested and debugged both of these methods, try to do the same thing using `try` and `catch` instead of regular expressions (this will take some research).
+When you've successfully tested and debugged both of these methods, try to accomplish the same tasks using `try` and `catch` instead of regular expressions. We have not covered these yet, so a little research will be necessary.
 
 ## Task 3
 
-Create a text-based game of tic-tac-toe. The board state should be stored in a $3\times3$ 2D `char` array, whose elements are `'x'`, `'o'` or `'\0'` (the null character, for board spaces that are empty). After each turn, the board should be printed in a format like this:
+Create a text-based game of tic-tac-toe. The board state should be stored in a *3* x *3* 2D `char` array, whose elements are `'x'`, `'o'` or `'\0'` (the null character, for board spaces that are empty). After each turn, the board should be printed in a format like this:
 
 ```
 	 1   2   3
