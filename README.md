@@ -717,6 +717,38 @@ left : (0, 0)
 left : (-1, 0)
 ```
 
+## varargs
+
+Sometimes, it is convenient to let a method take a variable number of arguments. Java has a feature for this situation, called varargs.
+
+Imagine you want to make a method which takes integers as arguments and returns their sum, and furthermore that you want it to be able to take any number of arguments. Such a method could be written like this:
+
+```java
+static void Sum(int... args)
+{
+    int sum = 0;
+    for (int i = 0; i < args.length; i++)
+    {
+        sum += args[i];
+    }
+}
+```
+
+In the example above, the type `int...` specifies that an arbitrary number of integers will be packed into the `args` argument. `args`, then, will be an array containing all of those integers.
+
+The `Sum` method can be called with either an arbitrary number of single integers, or a single array containing an arbitrary number of integers. Either of the following is valid:
+
+```java
+int sum = Sum(1, 2, 3, 4);
+```
+
+```java
+int[] operands = {1, 2, 3, 4};
+int sum = Sum(operands);
+```
+
+There are some limitations here: a method can have arguments in addition to a vararg, but it can only have 1 vararg and that vararg must be the last argument.
+
 ## Answers to Selected Exercises
 
 ### <a name="a1"></a>**[EXERCISE 1](#q1)**
@@ -877,7 +909,7 @@ F : 1
 Process finished with exit code 0
 ```
 
-<a name="a7"></a>**[EXERCISE 7](#q7)** The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
+### <a name="a7"></a>**[EXERCISE 7](#q7)** The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
 
 ### <a name="a8"></a>**[EXERCISE 8](#q8)**
 
@@ -1068,38 +1100,6 @@ Process finished with exit code 0
 16. `[A-Z0-9\$_]+|[a-z0-9\$_]+`
 17. `\w+( \w+)*\.`
 18. `\w+([,:;]? \w+)*[.!?]`
-
-## varargs
-
-Sometimes, it is convenient to let a method take a variable number of arguments. Java has a feature for this situation, called varargs.
-
-Imagine you want to make a method which takes integers as arguments and returns their sum, and furthermore that you want it to be able to take any number of arguments. Such a method could be written like this:
-
-```java
-static void Sum(int... args)
-{
-    int sum = 0;
-    for (int i = 0; i < args.length; i++)
-    {
-        sum += args[i];
-    }
-}
-```
-
-In the example above, the type `int...` specifies that an arbitrary number of integers will be packed into the `args` argument. `args`, then, will be an array containing all of those integers.
-
-The `Sum` method can be called with either an arbitrary number of single integers, or a single array containing an arbitrary number of integers. Either of the following is valid:
-
-```java
-int sum = Sum(1, 2, 3, 4);
-```
-
-```java
-int[] operands = {1, 2, 3, 4};
-int sum = Sum(operands);
-```
-
-There are some limitations here: a method can have arguments in addition to a vararg, but it can only have 1 vararg and that vararg must be the last argument.
 
 # Lab Assignment
 
