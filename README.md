@@ -724,13 +724,14 @@ Sometimes, it is convenient to let a method take a variable number of arguments.
 Imagine you want to make a method which takes integers as arguments and returns their sum, and furthermore that you want it to be able to take any number of arguments. Such a method could be written like this:
 
 ```java
-static void Sum(int... args)
+static int Sum(int... args)
 {
     int sum = 0;
     for (int i = 0; i < args.length; i++)
     {
         sum += args[i];
     }
+    return sum
 }
 ```
 
