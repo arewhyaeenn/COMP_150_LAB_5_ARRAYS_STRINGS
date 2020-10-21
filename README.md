@@ -50,7 +50,7 @@ The snippet above creates an array of `String`s called `dayNames` containing 7 `
 Adding square brackets `[ ]` after the data type in a declaration indicates that an array is being declared. The data type for an array of `String`s is `String[ ]`, that for an array of `int`s is `int[ ]`, and so on. Arrays can be declared to store any data type. All of the following would are valid array declarations:
 
 `int[ ] testScores;`  
-`double[ ] monthlyRainfall`  
+`double[ ] monthlyRainfall;`  
 `String[ ] dayNames;`  
 `Point[ ] corners;`
 
