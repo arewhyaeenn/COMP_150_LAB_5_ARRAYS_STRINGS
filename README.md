@@ -651,7 +651,7 @@ Notice the difference between the regular expression in the program above (in th
 
 ## `ArrayList`
 
-The `ArrayList` class is essentially an array wrapped in an object with a bunch of extra methods and capabilities. Anything you can do with an `ArrayList` can also be done with arrays with enough determination, but the pile of extra functionality that the `ArrayList` class provides (and which you therefore don't need to implement) can make many tasks much simpler, particularly if the size necessary for the array is unknown when it is constructed. You can find its documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html). 
+The `ArrayList` class defines the behavior of `ArrayList` objects, which are essentially arrays wrapped in objects with a bunch of extra methods and capabilities. Anything you can do with an `ArrayList` can also be done with arrays with enough determination, but the pile of extra functionality that the `ArrayList` class provides (and which you therefore don't need to implement) can make many tasks much simpler, particularly if the size necessary for the array is unknown when it is constructed. You can find the `ArrayList` documentation [here](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html). 
 
 One of the most convenient differences between an `ArrayList` and an array is that `ArrayList`s are dynamically sized. This means that the number of elements they contain can be changed, and does not need to be specified during construction.
 
@@ -691,7 +691,7 @@ class Sandbox
 }
 ```
 
-Note the differences in how the `ArrayList` is accessed compared to the standard array: elements are accessed with their using the `get` method. The number of elements in the array is accessed using the `size` method. The value at a specified index can be changed using the `ArrayList`'s `set` method.
+Note the differences in how the `ArrayList` is accessed compared to the standard array: elements are accessed with their using the `get` method. The number of elements in the array is accessed using the `size` method. The value at a specified index can be changed using the `ArrayList`'s `set` method (if that index already has a value). A new value can be appended to an `ArrayList` using the `add` method.
 
 <a name="q19"></a>**EXERCISE 19** Create a program which gets user inputs in `String` form. Inputs which are `"up"`, `"down"`, `"left"` or `"right"` should be stored in an `ArrayList` until the user enters the sentinel `"END"`. Once the user enters the sentinel, your program should treat the user's input as directions for navigating a 2D grid. It should start a `Point` at coordinates *(0, 0)* and move then move 1 unit in the specified direction for each `String` stored in the `ArrayList`. It should print each point it passes. Inputs which are none of the four directions and also not the sentinel should be ignored; no sequence of user inputs should cause the program to crash. This validation can be done with `if`/`else` cascades or with regular expressions.
 
@@ -724,7 +724,7 @@ Sometimes, it is convenient to let a method take a variable number of arguments.
 Imagine you want to make a method which takes integers as arguments and returns their sum, and furthermore that you want it to be able to take any number of arguments. Such a method could be written like this:
 
 ```java
-static int Sum(int... args)
+static int sum(int... args)
 {
     int sum = 0;
     for (int i = 0; i < args.length; i++)
@@ -737,18 +737,18 @@ static int Sum(int... args)
 
 In the example above, the type `int...` specifies that an arbitrary number of integers will be packed into the `args` argument. `args`, then, will be an array containing all of those integers.
 
-The `Sum` method can be called with either an arbitrary number of single integers, or a single array containing an arbitrary number of integers. Either of the following is valid:
+The `sum` method can be called with either an arbitrary number of single integers, or a single array containing an arbitrary number of integers. Either of the following is valid:
 
 ```java
-int sum = Sum(1, 2, 3, 4);
+int sum = sum(1, 2, 3, 4);
 ```
 
 ```java
 int[] operands = {1, 2, 3, 4};
-int sum = Sum(operands);
+int sum = sum(operands);
 ```
 
-There are some limitations here: a method can have arguments in addition to a vararg, but it can only have 1 vararg and that vararg must be the last argument.
+There is a limitations here: a method can have arguments in addition to a vararg, but it can only have 1 vararg and that vararg must be the last argument.
 
 ## Answers to Selected Exercises
 
