@@ -521,7 +521,7 @@ Here `numbers` is an array containing 4 `int[ ]`s which have lengths 1, 2, 4 and
 
 <a name="q10"></a>**[EXERCISE 10](#a10)** Make your test from the previous exercise more compact as follows: create a 3D `int` array, containing several 2D arrays on which to test the method to print 2D array elements. Iterate through this 3D array, testing the method on each contained 2D array.
 
-<a name="q11"></a>**EXERCISE 11** Create a program which populates a $10\times10$ 2D array called `distances` such that the value stored at each index `[x][y]` is the [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions) from point $(0, 0)$ to point *(x, y)*. You should calculate the values in the array using nested `for` loops. Your program should also print values which allow you to observe whether your solution is correct or not.
+<a name="q11"></a>**EXERCISE 11** Create a program which populates a 10 by 10 2D array called `distances` such that the value stored at each index `[x][y]` is the [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions) from point (0, 0) to point *(x, y)*. You should calculate the values in the array using nested `for` loops. Your program should also print values which allow you to observe whether your solution is correct or not.
 
 <a name="q12"></a>**EXERCISE 12** Repeat the previous exercise, but with a 3D array. The value stored at index `[x][y][z]` should be the euclidean distance from point *(0,0,0)* to point *(x,y,z)*.
 
