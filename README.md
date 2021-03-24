@@ -592,7 +592,7 @@ The escape sequence `\r` denotes a **carriage return**, an antique carried from 
 
 Brace yourself. Regular expressions (often called **regex**) are incredibly useful, but they're also tedious and essentially unreadable. Be patient with this section; taking the time here to make sure you understand how to read and write these expressions (which often look like hieroglyphics) will provide an unmatched way to parse and validate user inputs, among other things.
 
-Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor used in the video (called Atom) [here](https://atom.io) if you'd like to follow along with the video's experimentation with regular expressions.
+Check out [this video](https://www.youtube.com/watch?v=sa-TUpSx1JA) on regular expressions. You can download the text editor used in the video (called Atom) [here](https://atom.io) if you'd like to follow along with the video's experimentation with regular expressions. Chances are that your favorite text editor supports regular expression searches too, if you'd prefer to use it instead :)
 
 <a name="q17"></a>**[EXERCISE 17](#a17)** Write regular expressions to recognize each of the following patterns:
 
