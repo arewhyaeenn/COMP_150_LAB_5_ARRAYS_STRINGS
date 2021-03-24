@@ -542,8 +542,8 @@ String hello = "Hello";
 The statement above creates a `String` called `hello` and stores in it the value `"Hello"`. We can visualize this value and its indexes much like an array:
 
 | **`char`** | `'H'` | `'e'` | `'l'` | `'l'` | `'o'` |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **index** | **0** | **1**| **2** | **3**| **4** |
+| :--------: | :---: | :---: | :---: | :---: | :---: |
+| **index**  | **0** | **1** | **2** | **3** | **4** |
 
 Where arrays use square brackets to access elements by their index, `String`s use the `charAt` method to access elements at specified indexes. From the for example, in the snippet above, `hello.charAt(1)` is an expression which would return the `'e'` from `"Hello"`.
 
