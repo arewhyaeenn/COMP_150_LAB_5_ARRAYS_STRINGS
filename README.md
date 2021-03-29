@@ -910,7 +910,9 @@ F : 1
 Process finished with exit code 0
 ```
 
-### <a name="a7"></a>**[EXERCISE 7](#q7)** The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
+### <a name="a7"></a>**[EXERCISE 7](#q7)** 
+
+The `StringBuilder`'s `reverse` method is useful here. A `String` is a palindrome if and only if reversing it does not change its value. Thus, if a `String` equals the result of reversing it, then the `String` is a palindrome.
 
 ### <a name="a8"></a>**[EXERCISE 8](#q8)**
 
